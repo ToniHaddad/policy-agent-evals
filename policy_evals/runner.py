@@ -74,6 +74,20 @@ class RunResult:
     def gate_passed(self) -> bool:
         return self.count("fail") == 0 and self.count("unexpected_pass") == 0
 
+    def breakdown(self) -> list[str]:
+        """Pass counts by language and by tag, for the console and the README."""
+        groups: dict[str, list[CaseResult]] = {}
+        for r in self.results:
+            groups.setdefault(f"language {r.case.language}", []).append(r)
+            for t in r.case.tags:
+                groups.setdefault(f"tag {t}", []).append(r)
+        lines = []
+        for name in sorted(groups):
+            rs = groups[name]
+            ok = sum(1 for r in rs if r.passed)
+            lines.append(f"{name:<24} {ok:>2}/{len(rs):<2} pass")
+        return lines
+
     def summary_line(self) -> str:
         return (
             f"{self.mode.value}: {len(self.results)} cases, {self.count('pass')} pass, "

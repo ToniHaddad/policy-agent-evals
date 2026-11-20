@@ -1,0 +1,18 @@
+========================================================================
+REPLAY  no agent called  replies recorded=2026-11-20T21:41:30+00:00  by=reference-bm25
+========================================================================
+
+by language and tag:
+  language ar               1/4  pass
+  language en              33/35 pass
+  language fr               3/4  pass
+  tag escalation            8/12 pass
+  tag missing-detail        8/8  pass
+  tag multilingual          8/12 pass
+  tag office-difference    13/13 pass
+  tag paraphrase            0/2  pass
+  tag policy-change         6/6  pass
+
+REPLAY: 43 cases, 37 pass, 0 fail, 6 known failures, 0 unexpected passes -> GATE PASSED
+report:       reports/report-replay.html
+review sheet: reports/review-sheet-replay.html

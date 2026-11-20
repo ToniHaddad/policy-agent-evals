@@ -39,6 +39,9 @@ def _print_run(run: RunResult, paths: dict) -> None:
         print(f"\n{len(run.warnings)} case label(s) no longer match the policies:")
         for w in run.warnings:
             print(f"  - {w}")
+    print("\nby language and tag:")
+    for line in run.breakdown():
+        print(f"  {line}")
     print()
     print(run.summary_line())
     print(f"report:       {paths['report'].as_posix()}")
