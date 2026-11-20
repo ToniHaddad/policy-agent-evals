@@ -41,8 +41,8 @@ def _print_run(run: RunResult, paths: dict) -> None:
             print(f"  - {w}")
     print()
     print(run.summary_line())
-    print(f"report:       {paths['report']}")
-    print(f"review sheet: {paths['review']}")
+    print(f"report:       {paths['report'].as_posix()}")
+    print(f"review sheet: {paths['review'].as_posix()}")
     _step_summary(run)
 
 
