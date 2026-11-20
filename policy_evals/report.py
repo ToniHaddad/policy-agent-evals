@@ -65,7 +65,7 @@ summary::-webkit-details-marker{display:none}
 .pill.known_fail,.pill.unexpected_pass{background:var(--known-bg);color:var(--known)}
 .cid{font:600 14px var(--mono);overflow-wrap:anywhere}
 .cmeta{grid-column:2;font-size:13px;color:var(--muted)}
-.dots{grid-row:1/span 2;grid-column:3;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:220px}
+.dots{grid-row:1/span 2;grid-column:3;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:320px}
 .dot{font:11px var(--mono);border-radius:4px;padding:1px 5px}
 .dot.ok{background:var(--pass-bg);color:var(--pass)}.dot.no{background:var(--fail-bg);color:var(--fail)}
 .body{padding:0 12px 12px;display:grid;gap:10px}
@@ -81,7 +81,9 @@ padding:8px 10px;border-radius:4px;overflow-wrap:anywhere}
 .reason{font-size:14px;background:var(--known-bg);border-radius:6px;padding:8px 10px}
 footer{max-width:980px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:13px}
 footer .mode-tag{font-weight:800;color:var(--ink)}
+.nw{white-space:nowrap}
 @media (max-width:560px){summary{grid-template-columns:auto 1fr}.dots{grid-row:auto;grid-column:1/-1;justify-content:flex-start;max-width:none}
+.cmeta{grid-column:1/-1}.tiles{grid-template-columns:1fr 1fr}.tile.gate{grid-column:1/-1}
 h1{font-size:22px}.banner .mode{font-size:19px}}
 """
 
@@ -106,12 +108,12 @@ def mode_banner(run: RunResult) -> str:
             f'<header class="banner live" data-mode="LIVE"><div class="mode">LIVE RUN</div>'
             f'<div class="meta">The agent <b>{who}</b> answered every question just now'
             + (f" &middot; knowledge {esc(snap)}" if snap else "")
-            + f" &middot; started {esc(run.started_at)}</div></header>"
+            + f' &middot; started <span class="nw">{esc(run.started_at)}</span></div></header>'
         )
     return (
         f'<header class="banner replay" data-mode="REPLAY"><div class="mode">REPLAY</div>'
         f'<div class="meta">No agent was called. Re-checked replies that <b>{who}</b> gave on '
-        f'{esc(run.recorded_at)} against today\'s cases and policies'
+        f'<span class="nw">{esc(run.recorded_at)}</span> against today\'s cases and policies'
         + (f" &middot; {esc(run.transcript_path)}" if run.transcript_path else "")
         + "</div></header>"
     )
