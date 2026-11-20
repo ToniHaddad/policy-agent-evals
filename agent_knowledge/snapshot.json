@@ -1,0 +1,197 @@
+{
+ "corpus_fingerprint": "d9ed48bd59d5",
+ "versions": [
+  {
+   "document": "ke-travel",
+   "title": "Northbridge Relief Kenya Office, Staff Travel Policy",
+   "office": "kenya",
+   "version": "1.0",
+   "effective_from": "2025-07-01",
+   "source": "kenya/ke-travel-v1.0.md",
+   "clauses": [
+    {
+     "id": "KE-1.1",
+     "title": "Scope",
+     "text": "This policy applies to all staff, consultants and volunteers of the Kenya country office who travel on Northbridge Relief business.",
+     "replaces": null
+    },
+    {
+     "id": "KE-2.1",
+     "title": "Travel request",
+     "text": "Raise a travel request in the travel system for every trip. The budget holder for the grant that pays for the trip approves the travel request.",
+     "replaces": null
+    },
+    {
+     "id": "KE-3.1",
+     "title": "Advance booking",
+     "text": "Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
+     "replaces": null
+    },
+    {
+     "id": "KE-4.1",
+     "title": "Hotel ceiling",
+     "text": "The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+     "replaces": null
+    },
+    {
+     "id": "KE-4.2",
+     "title": "Meal allowance",
+     "text": "The daily meal allowance (per diem) is KES 4,000 for each night away from your duty station. No allowance is paid for day trips.",
+     "replaces": null
+    },
+    {
+     "id": "KE-5.1",
+     "title": "Ground transport",
+     "text": "Use the approved taxi providers listed on the intranet. Motorbike taxis are not allowed for any trip on Northbridge Relief business.",
+     "replaces": null
+    },
+    {
+     "id": "KE-6.1",
+     "title": "Exceptions",
+     "text": "Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
+     "replaces": null
+    },
+    {
+     "id": "KE-7.1",
+     "title": "Movement request",
+     "text": "Field travel outside Nairobi needs a movement request approved by the security officer at least 24 hours before departure.",
+     "replaces": null
+    },
+    {
+     "id": "KE-8.1",
+     "title": "Expense claims",
+     "text": "Submit your expense claim with all receipts within 30 days of your return.",
+     "replaces": null
+    }
+   ]
+  },
+  {
+   "document": "lb-travel",
+   "title": "Northbridge Relief Lebanon Office, Staff Travel Policy",
+   "office": "lebanon",
+   "version": "1.0",
+   "effective_from": "2025-03-01",
+   "source": "lebanon/lb-travel-v1.0.md",
+   "clauses": [
+    {
+     "id": "LB-1.1",
+     "title": "Scope",
+     "text": "This policy applies to all staff and consultants of the Lebanon country office who travel on Northbridge Relief business, inside Lebanon or abroad.",
+     "replaces": null
+    },
+    {
+     "id": "LB-2.1",
+     "title": "Travel request",
+     "text": "Every trip needs an approved travel request in the travel system before any ticket or hotel is booked. Your line manager approves the travel request.",
+     "replaces": null
+    },
+    {
+     "id": "LB-3.1",
+     "title": "Advance booking",
+     "text": "Submit the travel request at least 7 calendar days before departure. A request submitted later than this needs an exception under LB-6.1.",
+     "replaces": null
+    },
+    {
+     "id": "LB-4.1",
+     "title": "Hotel ceiling",
+     "text": "The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+     "replaces": null
+    },
+    {
+     "id": "LB-4.2",
+     "title": "Meal allowance",
+     "text": "The daily meal allowance (per diem) is USD 35 for each full day of travel and USD 20 for the day of departure and the day of return. Meals included in a workshop or hotel rate are deducted.",
+     "replaces": null
+    },
+    {
+     "id": "LB-5.1",
+     "title": "Ground transport",
+     "text": "Use an office vehicle where one is available. Taxis and ride services are reimbursed against a receipt. Private car mileage is not reimbursed.",
+     "replaces": null
+    },
+    {
+     "id": "LB-6.1",
+     "title": "Exceptions",
+     "text": "Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+     "replaces": null
+    },
+    {
+     "id": "LB-7.1",
+     "title": "Security clearance",
+     "text": "Travel to any area rated level 3 or above on the office security map needs clearance from the security focal point at least 48 hours before departure.",
+     "replaces": null
+    },
+    {
+     "id": "LB-8.1",
+     "title": "Expense claims",
+     "text": "Submit your expense claim with all receipts within 15 days of your return. Claims submitted later are paid only with the Head of Office's approval.",
+     "replaces": null
+    }
+   ]
+  },
+  {
+   "document": "lb-travel",
+   "title": "Northbridge Relief Lebanon Office, Staff Travel Policy",
+   "office": "lebanon",
+   "version": "2.0",
+   "effective_from": "2026-10-15",
+   "source": "lebanon/lb-travel-v2.0.md",
+   "clauses": [
+    {
+     "id": "LB-1.1",
+     "title": "Scope",
+     "text": "This policy applies to all staff and consultants of the Lebanon country office who travel on Northbridge Relief business, inside Lebanon or abroad.",
+     "replaces": null
+    },
+    {
+     "id": "LB-2.1",
+     "title": "Travel request",
+     "text": "Every trip needs an approved travel request in the travel system before any ticket or hotel is booked. Your line manager approves the travel request.",
+     "replaces": null
+    },
+    {
+     "id": "LB-3.2",
+     "title": "Advance booking",
+     "text": "Submit the travel request at least 10 calendar days before departure, so that the security focal point and finance can both review it. A request submitted later than this needs an exception under LB-6.1.",
+     "replaces": "LB-3.1"
+    },
+    {
+     "id": "LB-4.1",
+     "title": "Hotel ceiling",
+     "text": "The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+     "replaces": null
+    },
+    {
+     "id": "LB-4.2",
+     "title": "Meal allowance",
+     "text": "The daily meal allowance (per diem) is USD 35 for each full day of travel and USD 20 for the day of departure and the day of return. Meals included in a workshop or hotel rate are deducted.",
+     "replaces": null
+    },
+    {
+     "id": "LB-5.1",
+     "title": "Ground transport",
+     "text": "Use an office vehicle where one is available. Taxis and ride services are reimbursed against a receipt. Private car mileage is not reimbursed.",
+     "replaces": null
+    },
+    {
+     "id": "LB-6.1",
+     "title": "Exceptions",
+     "text": "Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+     "replaces": null
+    },
+    {
+     "id": "LB-7.1",
+     "title": "Security clearance",
+     "text": "Travel to any area rated level 3 or above on the office security map needs clearance from the security focal point at least 48 hours before departure.",
+     "replaces": null
+    },
+    {
+     "id": "LB-8.1",
+     "title": "Expense claims",
+     "text": "Submit your expense claim with all receipts within 15 days of your return. Claims submitted later are paid only with the Head of Office's approval.",
+     "replaces": null
+    }
+   ]
+  }
+ ]
+}

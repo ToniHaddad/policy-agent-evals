@@ -1,0 +1,947 @@
+{
+ "kind": "policy-agent-evals/transcripts",
+ "format": 1,
+ "recorded_at": "2026-11-20T21:41:30+00:00",
+ "agent": {
+  "name": "reference-bm25",
+  "kind": "in-process",
+  "knowledge_snapshot": "d9ed48bd59d5",
+  "versions_known": [
+   "ke-travel v1.0",
+   "lb-travel v1.0",
+   "lb-travel v2.0"
+  ]
+ },
+ "entries": [
+  {
+   "case": "office-hotel-ceiling-lb",
+   "request": {
+    "question": "What is the maximum hotel rate per night I can book?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-25",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Hotel ceiling (LB-4.1): The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-hotel-ceiling-ke",
+   "request": {
+    "question": "What is the maximum hotel rate per night I can book?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-25",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Hotel ceiling (KE-4.1): The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-notice-lb",
+   "request": {
+    "question": "How many days before departure must I submit my travel request?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-30",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Advance booking (LB-3.2): Submit the travel request at least 10 calendar days before departure, so that the security focal point and finance can both review it. A request submitted later than this needs an exception under LB-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-3.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-notice-ke",
+   "request": {
+    "question": "How many days before departure must I submit my travel request?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-30",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Advance booking (KE-3.1): Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-3.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-approver-lb",
+   "request": {
+    "question": "Who approves an exception to the travel rules?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-27",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Exceptions (LB-6.1): Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-approver-ke",
+   "request": {
+    "question": "Who approves an exception to the travel rules?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-27",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Exceptions (KE-6.1): Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-claims-lb",
+   "request": {
+    "question": "How long do I have to submit my expense claim after I get back?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-23",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Expense claims (LB-8.1): Submit your expense claim with all receipts within 15 days of your return. Claims submitted later are paid only with the Head of Office's approval.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-8.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-claims-ke",
+   "request": {
+    "question": "How long do I have to submit my expense claim after I get back?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-23",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Expense claims (KE-8.1): Submit your expense claim with all receipts within 30 days of your return.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-8.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-per-diem-lb",
+   "request": {
+    "question": "What is the daily meal allowance when I travel?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-26",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Meal allowance (LB-4.2): The daily meal allowance (per diem) is USD 35 for each full day of travel and USD 20 for the day of departure and the day of return. Meals included in a workshop or hotel rate are deducted.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-per-diem-ke",
+   "request": {
+    "question": "What is the daily meal allowance when I travel?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-26",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Meal allowance (KE-4.2): The daily meal allowance (per diem) is KES 4,000 for each night away from your duty station. No allowance is paid for day trips.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-hotel-115-lb",
+   "request": {
+    "question": "My hotel costs USD 115 per night. Is that within policy?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-26",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Yes. USD 115 per night is within the USD 120 ceiling in LB-4.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "office-hotel-115-ke",
+   "request": {
+    "question": "My hotel costs USD 115 per night. Is that within policy?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-26",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: USD 115 is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.1"
+     },
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-notice-rule-before",
+   "request": {
+    "question": "How many days in advance must I submit my travel request?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-10-14",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Advance booking (LB-3.1): Submit the travel request at least 7 calendar days before departure. A request submitted later than this needs an exception under LB-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "1.0",
+      "clause": "LB-3.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-notice-rule-on-day",
+   "request": {
+    "question": "How many days in advance must I submit my travel request?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-10-15",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Advance booking (LB-3.2): Submit the travel request at least 10 calendar days before departure, so that the security focal point and finance can both review it. A request submitted later than this needs an exception under LB-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-3.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-8-days-before",
+   "request": {
+    "question": "My trip leaves in 8 days. Can I still submit the travel request normally?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-10-10",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Yes. 8 days meets the 7-day minimum in LB-3.1. Submit the travel request as usual.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "1.0",
+      "clause": "LB-3.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-8-days-after",
+   "request": {
+    "question": "My trip leaves in 8 days. Can I still submit the travel request normally?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-10-20",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: 8 days is less than the 10-day minimum (LB-3.2). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-3.2"
+     },
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-6-days-before",
+   "request": {
+    "question": "I only found out today and the trip leaves in 6 days. What should I do?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-09-30",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: 6 days is less than the 7-day minimum (LB-3.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "1.0",
+      "clause": "LB-3.1"
+     },
+     {
+      "document": "lb-travel",
+      "version": "1.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-12-days-after",
+   "request": {
+    "question": "My trip leaves in 12 days. Is that enough notice?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-02",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Yes. 12 days meets the 10-day minimum in LB-3.2. Submit the travel request as usual.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-3.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "missing-date-notice",
+   "request": {
+    "question": "How many days ahead do I need to book my trip?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": null,
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "missing-date-8-days",
+   "request": {
+    "question": "My trip leaves in 8 days, is that enough notice?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": null,
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "missing-rate-ke",
+   "request": {
+    "question": "Do I need extra approval for my hotel?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-28",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "What is the nightly rate of the hotel, in USD? The answer depends on it.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "missing-rate-lb",
+   "request": {
+    "question": "Is my hotel within the allowed rate?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-12-05",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "What is the nightly rate of the hotel, in USD? The answer depends on it.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "missing-days-ke",
+   "request": {
+    "question": "My trip is coming up soon. Have I left it too late to book?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-12-03",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "How many days before departure are you submitting the travel request?",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "escalate-pitch-lb",
+   "request": {
+    "question": "My trip leaves in four days and the hotel is above the usual limit. What do I need before I submit?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-24",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: 4 days is less than the 10-day minimum (LB-3.2); Your hotel rate is above the USD 120 per night ceiling (LB-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-3.2"
+     },
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.1"
+     },
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "escalate-pitch-ke",
+   "request": {
+    "question": "My trip leaves in four days and the hotel is above the usual limit. What do I need before I submit?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-24",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: 4 days is less than the 5-day minimum (KE-3.1); Your hotel rate is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-3.1"
+     },
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.1"
+     },
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "escalate-hotel-140-lb",
+   "request": {
+    "question": "The only hotel near the site costs USD 140 a night. Can I book it?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-12-01",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: USD 140 is above the USD 120 per night ceiling (LB-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.1"
+     },
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "escalate-hotel-140-ke",
+   "request": {
+    "question": "The only hotel near the site costs USD 140 a night. Can I book it?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-12-01",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: USD 140 is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.1"
+     },
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "kenya-hotel-100-december",
+   "request": {
+    "question": "My hotel in Kisumu is USD 100 per night. Is that within policy?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-12-14",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Yes. USD 100 per night is within the USD 110 ceiling in KE-4.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "kenya-hotel-limit-december",
+   "request": {
+    "question": "What is the nightly hotel limit for a trip to Mombasa?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-12-20",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Hotel ceiling (KE-4.1): The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "paraphrase-a-week-lb",
+   "request": {
+    "question": "My trip leaves in a week. Is that enough notice?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-28",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "How many days before departure are you submitting the travel request?",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "paraphrase-no-currency-ke",
+   "request": {
+    "question": "The guesthouse charges 130 a night. Can I book it?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-27",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Advance booking (KE-3.1): Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-3.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-ceiling-en",
+   "request": {
+    "question": "What is the maximum hotel price per night?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-25",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Hotel ceiling (LB-4.1): The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-ceiling-fr",
+   "request": {
+    "question": "Quel est le prix maximum d'un hôtel par nuit ?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-25",
+     "language": "fr"
+    }
+   },
+   "response": {
+    "answer": "Hotel ceiling (LB-4.1): The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-ceiling-ar",
+   "request": {
+    "question": "ما هو الحد الأقصى لسعر الفندق في الليلة؟",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-25",
+     "language": "ar"
+    }
+   },
+   "response": {
+    "answer": "I could not find a clause in the travel policy that matches your question. Could you rephrase it?",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-approver-en",
+   "request": {
+    "question": "Who approves an exception to the travel policy?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-24",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Exceptions (KE-6.1): Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-approver-fr",
+   "request": {
+    "question": "Qui approuve une exception à la politique de voyage ?",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-24",
+     "language": "fr"
+    }
+   },
+   "response": {
+    "answer": "Exceptions (KE-6.1): Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ke-travel",
+      "version": "1.0",
+      "clause": "KE-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-approver-ar",
+   "request": {
+    "question": "من يوافق على استثناء من سياسة السفر؟",
+    "context": {
+     "office": "kenya",
+     "travel_date": "2026-11-24",
+     "language": "ar"
+    }
+   },
+   "response": {
+    "answer": "I could not find a clause in the travel policy that matches your question. Could you rephrase it?",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-late-en",
+   "request": {
+    "question": "My trip leaves in 4 days. What do I need to do?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-10",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "This needs an exception: 4 days is less than the 10-day minimum (LB-3.2). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-3.2"
+     },
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-late-fr",
+   "request": {
+    "question": "Mon voyage part dans 4 jours. Que dois-je faire ?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-10",
+     "language": "fr"
+    }
+   },
+   "response": {
+    "answer": "Exceptions (LB-6.1): Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-late-ar",
+   "request": {
+    "question": "رحلتي بعد 4 أيام. ماذا يجب أن أفعل؟",
+    "context": {
+     "office": "lebanon",
+     "travel_date": "2026-11-10",
+     "language": "ar"
+    }
+   },
+   "response": {
+    "answer": "Exceptions (LB-6.1): Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "lb-travel",
+      "version": "2.0",
+      "clause": "LB-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "lang-nodate-en",
+   "request": {
+    "question": "How many days in advance must I submit my travel request?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": null,
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-nodate-fr",
+   "request": {
+    "question": "Combien de jours à l'avance dois-je soumettre ma demande de voyage ?",
+    "context": {
+     "office": "lebanon",
+     "travel_date": null,
+     "language": "fr"
+    }
+   },
+   "response": {
+    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-nodate-ar",
+   "request": {
+    "question": "كم يوماً مسبقاً يجب أن أقدم طلب السفر؟",
+    "context": {
+     "office": "lebanon",
+     "travel_date": null,
+     "language": "ar"
+    }
+   },
+   "response": {
+    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  }
+ ]
+}
