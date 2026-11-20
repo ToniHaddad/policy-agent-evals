@@ -6,12 +6,12 @@ import argparse
 import os
 import sys
 from functools import partial
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from http.server import SimpleHTTPRequestHandler
 from pathlib import Path
 
 from .agent.http import HttpAgent
 from .agent.reference import DEFAULT_SNAPSHOT, ReferenceAgent, write_snapshot
-from .agent.stub_server import DEFAULT_PORT, make_server
+from .agent.stub_server import DEFAULT_PORT, ExclusiveServer, make_server
 from .cases import load_cases, load_known_failures
 from .policies import Corpus
 from .report import write_outputs
@@ -112,7 +112,7 @@ def cmd_serve(a) -> int:
         print(f"error: {root} does not exist; run 'evals run' or 'evals replay' first", file=sys.stderr)
         return 2
     handler = partial(SimpleHTTPRequestHandler, directory=str(root))
-    server = ThreadingHTTPServer(("127.0.0.1", a.port), handler)
+    server = ExclusiveServer(("127.0.0.1", a.port), handler)
     print(f"serving {root.as_posix()} at http://127.0.0.1:{a.port}/  (Ctrl+C to stop)")
     for name in sorted(p.name for p in root.glob("*.html")):
         print(f"  http://127.0.0.1:{a.port}/{name}")

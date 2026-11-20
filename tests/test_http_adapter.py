@@ -78,6 +78,11 @@ def test_headers_are_sent_but_not_recorded(stub):
     assert agent.ask(AgentRequest("Who approves an exception?", "kenya", "2026-11-24", "en")).action == "answer"
 
 
+def test_second_server_on_a_taken_port_fails_loudly(stub, agent):
+    with pytest.raises(OSError):
+        make_server(agent, port=PORT)
+
+
 def test_bad_action_is_rejected():
     from policy_evals.agent.base import AgentResponse
     with pytest.raises(ResponseFormatError, match="not one of"):

@@ -13,6 +13,7 @@ against a real socket. Routes:
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -22,8 +23,20 @@ from .base import AgentRequest, ResponseFormatError
 DEFAULT_PORT = 8104
 
 
+class ExclusiveServer(ThreadingHTTPServer):
+    """Refuses to start when the port is taken.
+
+    On Windows, SO_REUSEADDR (which http.server sets) lets a second server
+    bind a port that is already listening, and requests then reach the
+    wrong one. Turning it off there makes a taken port fail loudly.
+    """
+
+    allow_reuse_address = os.name != "nt"
+    daemon_threads = True
+
+
 def make_server(agent, host: str = "127.0.0.1", port: int = DEFAULT_PORT,
-                slow_seconds: float = 2.0) -> ThreadingHTTPServer:
+                slow_seconds: float = 2.0) -> ExclusiveServer:
     class Handler(BaseHTTPRequestHandler):
         def _send(self, status: int, payload: dict) -> None:
             body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -66,9 +79,7 @@ def make_server(agent, host: str = "127.0.0.1", port: int = DEFAULT_PORT,
         def log_message(self, *args):  # keep test and CLI output clean
             pass
 
-    server = ThreadingHTTPServer((host, port), Handler)
-    server.daemon_threads = True
-    return server
+    return ExclusiveServer((host, port), Handler)
 
 
 def serve_in_thread(server: ThreadingHTTPServer) -> threading.Thread:
