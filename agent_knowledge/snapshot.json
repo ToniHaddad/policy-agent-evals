@@ -1,5 +1,5 @@
 {
- "corpus_fingerprint": "d9ed48bd59d5",
+ "corpus_fingerprint": "c172332dfbc0",
  "versions": [
   {
    "document": "ke-travel",
@@ -32,6 +32,70 @@
      "title": "Hotel ceiling",
      "text": "The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
      "replaces": null
+    },
+    {
+     "id": "KE-4.2",
+     "title": "Meal allowance",
+     "text": "The daily meal allowance (per diem) is KES 4,000 for each night away from your duty station. No allowance is paid for day trips.",
+     "replaces": null
+    },
+    {
+     "id": "KE-5.1",
+     "title": "Ground transport",
+     "text": "Use the approved taxi providers listed on the intranet. Motorbike taxis are not allowed for any trip on Northbridge Relief business.",
+     "replaces": null
+    },
+    {
+     "id": "KE-6.1",
+     "title": "Exceptions",
+     "text": "Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
+     "replaces": null
+    },
+    {
+     "id": "KE-7.1",
+     "title": "Movement request",
+     "text": "Field travel outside Nairobi needs a movement request approved by the security officer at least 24 hours before departure.",
+     "replaces": null
+    },
+    {
+     "id": "KE-8.1",
+     "title": "Expense claims",
+     "text": "Submit your expense claim with all receipts within 30 days of your return.",
+     "replaces": null
+    }
+   ]
+  },
+  {
+   "document": "ke-travel",
+   "title": "Northbridge Relief Kenya Office, Staff Travel Policy",
+   "office": "kenya",
+   "version": "2.0",
+   "effective_from": "2026-12-01",
+   "source": "kenya/ke-travel-v2.0.md",
+   "clauses": [
+    {
+     "id": "KE-1.1",
+     "title": "Scope",
+     "text": "This policy applies to all staff, consultants and volunteers of the Kenya country office who travel on Northbridge Relief business.",
+     "replaces": null
+    },
+    {
+     "id": "KE-2.1",
+     "title": "Travel request",
+     "text": "Raise a travel request in the travel system for every trip. The budget holder for the grant that pays for the trip approves the travel request.",
+     "replaces": null
+    },
+    {
+     "id": "KE-3.1",
+     "title": "Advance booking",
+     "text": "Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
+     "replaces": null
+    },
+    {
+     "id": "KE-4.3",
+     "title": "Hotel ceiling",
+     "text": "The hotel rate may not exceed USD 90 per night, including breakfast. A higher rate needs an exception under KE-6.1. Book through the travel coordinator's list of vetted hotels where one exists for your destination.",
+     "replaces": "KE-4.1"
     },
     {
      "id": "KE-4.2",

@@ -228,22 +228,25 @@
   travel_date: 2026-12-01
   language: en
   question: The only hotel near the site costs USD 140 a night. Can I book it?
-  expect: {action: escalate, clause: KE-4.1, version: "1.0"}
+  expect: {action: escalate, clause: KE-4.3, version: "2.0"}
   tags: [escalation]
 
+# Kenya v2.0 (from 2026-12-01) lowers the ceiling to USD 90, so USD 100 now
+# needs an exception.
 - id: kenya-hotel-100-december
   office: kenya
   travel_date: 2026-12-14
   language: en
   question: My hotel in Kisumu is USD 100 per night. Is that within policy?
-  expect: {action: answer, clause: KE-4.1, version: "1.0"}
+  expect: {action: escalate, clause: KE-4.3, version: "2.0"}
+  tags: [escalation]
 
 - id: kenya-hotel-limit-december
   office: kenya
   travel_date: 2026-12-20
   language: en
   question: What is the nightly hotel limit for a trip to Mombasa?
-  expect: {action: answer, clause: KE-4.1, version: "1.0"}
+  expect: {action: answer, clause: KE-4.3, version: "2.0"}
 
 # --- English paraphrases written without looking at the agent's patterns ---
 

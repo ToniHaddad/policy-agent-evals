@@ -1,13 +1,14 @@
 {
  "kind": "policy-agent-evals/transcripts",
  "format": 1,
- "recorded_at": "2026-11-20T21:41:30+00:00",
+ "recorded_at": "2026-11-20T21:43:21+00:00",
  "agent": {
   "name": "reference-bm25",
   "kind": "in-process",
-  "knowledge_snapshot": "d9ed48bd59d5",
+  "knowledge_snapshot": "c172332dfbc0",
   "versions_known": [
    "ke-travel v1.0",
+   "ke-travel v2.0",
    "lb-travel v1.0",
    "lb-travel v2.0"
   ]
@@ -606,17 +607,17 @@
     }
    },
    "response": {
-    "answer": "This needs an exception: USD 140 is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "answer": "This needs an exception: USD 140 is above the USD 90 per night ceiling (KE-4.3). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
     "action": "escalate",
     "citations": [
      {
       "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-4.1"
+      "version": "2.0",
+      "clause": "KE-4.3"
      },
      {
       "document": "ke-travel",
-      "version": "1.0",
+      "version": "2.0",
       "clause": "KE-6.1"
      }
     ]
@@ -633,13 +634,18 @@
     }
    },
    "response": {
-    "answer": "Yes. USD 100 per night is within the USD 110 ceiling in KE-4.1.",
-    "action": "answer",
+    "answer": "This needs an exception: USD 100 is above the USD 90 per night ceiling (KE-4.3). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "action": "escalate",
     "citations": [
      {
       "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-4.1"
+      "version": "2.0",
+      "clause": "KE-4.3"
+     },
+     {
+      "document": "ke-travel",
+      "version": "2.0",
+      "clause": "KE-6.1"
      }
     ]
    }
@@ -655,13 +661,13 @@
     }
    },
    "response": {
-    "answer": "Hotel ceiling (KE-4.1): The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+    "answer": "Hotel ceiling (KE-4.3): The hotel rate may not exceed USD 90 per night, including breakfast. A higher rate needs an exception under KE-6.1. Book through the travel coordinator's list of vetted hotels where one exists for your destination.",
     "action": "answer",
     "citations": [
      {
       "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-4.1"
+      "version": "2.0",
+      "clause": "KE-4.3"
      }
     ]
    }
