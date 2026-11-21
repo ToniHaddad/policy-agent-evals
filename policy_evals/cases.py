@@ -21,6 +21,7 @@ class CaseFormatError(ValueError):
 @dataclass(frozen=True)
 class Expectation:
     action: str
+    document: str | None = None
     clause: str | None = None
     version: str | None = None
 
@@ -28,8 +29,9 @@ class Expectation:
 @dataclass(frozen=True)
 class Case:
     id: str
-    office: str
-    travel_date: str | None
+    project: str | None
+    warehouse: str | None
+    movement_date: str | None
     language: str
     question: str
     expect: Expectation
@@ -37,38 +39,47 @@ class Case:
     tags: tuple[str, ...] = field(default_factory=tuple)
 
     def request(self) -> AgentRequest:
-        return AgentRequest(self.question, self.office, self.travel_date, self.language)
+        return AgentRequest(self.question, self.project, self.warehouse,
+                            self.movement_date, self.language)
 
     @property
-    def travel_day(self) -> date | None:
-        return date.fromisoformat(self.travel_date) if self.travel_date else None
+    def movement_day(self) -> date | None:
+        return date.fromisoformat(self.movement_date) if self.movement_date else None
+
+    def context_label(self) -> str:
+        return (f"{self.project or 'no project'}, {self.warehouse or 'no warehouse'}, "
+                f"moved {self.movement_date or 'no date'}, {self.language}")
 
 
 def _case_from(raw: dict, where: str) -> Case:
-    for key in ("id", "office", "language", "question", "expect"):
+    for key in ("id", "language", "question", "expect"):
         if key not in raw:
             raise CaseFormatError(f"{where}: missing '{key}'")
     exp = raw["expect"]
     if exp.get("action") not in ACTIONS:
         raise CaseFormatError(f"{raw['id']}: expect.action must be one of {ACTIONS}")
-    if exp["action"] != "ask_clarification" and not (exp.get("clause") and exp.get("version")):
-        raise CaseFormatError(f"{raw['id']}: answer and escalate cases need clause and version")
+    if exp["action"] != "ask_clarification" and not (
+        exp.get("document") and exp.get("clause") and exp.get("version")
+    ):
+        raise CaseFormatError(f"{raw['id']}: answer and escalate cases need document, clause and version")
     if raw["language"] not in LANGUAGES:
         raise CaseFormatError(f"{raw['id']}: language must be one of {LANGUAGES}")
-    td = raw.get("travel_date")
-    if isinstance(td, date):
-        td = td.isoformat()
-    elif td is not None:
-        date.fromisoformat(str(td))
-        td = str(td)
+    md = raw.get("movement_date")
+    if isinstance(md, date):
+        md = md.isoformat()
+    elif md is not None:
+        date.fromisoformat(str(md))
+        md = str(md)
     return Case(
         id=str(raw["id"]),
-        office=str(raw["office"]),
-        travel_date=td,
+        project=raw.get("project"),
+        warehouse=raw.get("warehouse"),
+        movement_date=md,
         language=raw["language"],
         question=str(raw["question"]).strip(),
         expect=Expectation(
             exp["action"],
+            exp.get("document"),
             exp.get("clause"),
             str(exp["version"]) if exp.get("version") is not None else None,
         ),
@@ -102,24 +113,24 @@ def load_known_failures(path: str | Path) -> dict[str, str]:
 
 
 def label_warnings(cases: list[Case], corpus: Corpus) -> list[str]:
-    """Case labels that no longer match the policy corpus.
+    """Case labels that no longer match the procedure documents.
 
     A policy owner who retires a clause also makes some hand labels stale. The
-    run still checks the agent against the corpus, but these warnings tell the
-    owner which labels to update.
+    run still checks the agent against the documents, but these warnings tell
+    the owner which labels to update.
     """
     out = []
     for c in cases:
-        if not c.expect.clause or not c.travel_day:
+        e = c.expect
+        if not e.clause or not c.movement_day:
             continue
-        doc = corpus.document_for_office(c.office)
-        v = corpus.version_in_force(doc, c.travel_day) if doc else None
+        v = corpus.version_in_force(e.document, c.movement_day)
         if v is None:
-            out.append(f"{c.id}: no {c.office} policy in force on {c.travel_date}")
-        elif v.version != c.expect.version or c.expect.clause not in v.clauses:
+            out.append(f"{c.id}: no version of {e.document} is in force on {c.movement_date}")
+        elif v.version != e.version or e.clause not in v.clauses:
             out.append(
-                f"{c.id}: label expects {c.expect.clause} v{c.expect.version}, but on "
-                f"{c.travel_date} {doc} v{v.version} is in force"
-                + ("" if c.expect.clause in v.clauses else f" and has no {c.expect.clause}")
+                f"{c.id}: label expects {e.clause} v{e.version}, but on "
+                f"{c.movement_date} {e.document} v{v.version} is in force"
+                + ("" if e.clause in v.clauses else f" and has no {e.clause}")
             )
     return out

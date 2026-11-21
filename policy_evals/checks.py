@@ -49,7 +49,7 @@ def check_clause(case: Case, r: AgentResponse) -> CheckResult | None:
 def check_version(case: Case, r: AgentResponse, corpus: Corpus) -> CheckResult | None:
     if not case.expect.version:
         return None
-    doc = corpus.document_for_office(case.office)
+    doc = case.expect.document
     of_doc = [c for c in r.citations if c.document == doc]
     target = [c for c in of_doc if c.clause == case.expect.clause] or of_doc
     if not target:
@@ -66,10 +66,11 @@ def check_version(case: Case, r: AgentResponse, corpus: Corpus) -> CheckResult |
 
 
 def check_in_force(case: Case, r: AgentResponse, corpus: Corpus) -> CheckResult | None:
-    """Every citation must point at a clause in force on the travel date.
+    """Every citation must point at a clause in force on the movement date,
+    in a document that applies to the case's project.
 
-    This check reads the current policy corpus, not the case label, so it
-    catches a retired clause even before anyone updates the test labels.
+    This check reads the current procedure documents, not the case label, so
+    it catches a retired clause even before anyone updates the test labels.
     """
     if not r.citations:
         return None
@@ -82,11 +83,15 @@ def check_in_force(case: Case, r: AgentResponse, corpus: Corpus) -> CheckResult 
         if c.clause not in cited_version.clauses:
             problems.append(f"cited {c.label()}, but that version has no clause {c.clause}")
             continue
-        if case.travel_day is None:
+        if case.project and cited_version.applies_to not in ("all", case.project):
+            problems.append(f"cited {c.label()}, which applies to {cited_version.applies_to} "
+                            f"stock, not {case.project}")
             continue
-        current = corpus.version_in_force(c.document, case.travel_day)
+        if case.movement_day is None:
+            continue
+        current = corpus.version_in_force(c.document, case.movement_day)
         if current is None:
-            problems.append(f"cited {c.label()}, but no {c.document} version is in force on {case.travel_date}")
+            problems.append(f"cited {c.label()}, but no {c.document} version is in force on {case.movement_date}")
         elif c.clause not in current.clauses:
             ret = corpus.retirement(c.document, c.clause)
             detail = ""
@@ -94,17 +99,17 @@ def check_in_force(case: Case, r: AgentResponse, corpus: Corpus) -> CheckResult 
                 detail = f" (retired from {ret.retired_from.isoformat()}" + (
                     f", replaced by {ret.replaced_by})" if ret.replaced_by else ")")
             problems.append(
-                f"cited {c.label()}, but for travel on {case.travel_date} the version in force "
+                f"cited {c.label()}, but for a movement on {case.movement_date} the version in force "
                 f"is {c.document} v{current.version}, where {c.clause} is retired{detail}"
             )
         elif current.version != c.version:
             problems.append(
-                f"cited {c.label()}, a superseded version: for travel on {case.travel_date} "
+                f"cited {c.label()}, a superseded version: for a movement on {case.movement_date} "
                 f"the version in force is {c.document} v{current.version}"
             )
     if problems:
         return CheckResult("in_force", False, "; ".join(problems))
-    return CheckResult("in_force", True, "every citation is in force on the travel date")
+    return CheckResult("in_force", True, "every citation is in force on the movement date")
 
 
 def check_pair(case: Case, r: AgentResponse, english: tuple[Case, AgentResponse] | None) -> CheckResult | None:

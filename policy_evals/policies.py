@@ -1,9 +1,10 @@
 """The policy corpus: versioned Markdown documents made of clauses.
 
 Each file is one complete version of one document. Front matter gives the
-document id, office, version and the date the version comes into force. A
-clause is a level-2 heading that starts with a clause id (``## LB-3.2 Title``).
-A version stays in force until the next version of the same document starts.
+document id, which projects it applies to (``all`` or one project code), the
+version and the date the version comes into force. A clause is a level-2
+heading that starts with a clause id (``## FA-4.2 Title``). A version stays
+in force until the next version of the same document starts.
 """
 
 from __future__ import annotations
@@ -36,7 +37,7 @@ class Clause:
 class PolicyVersion:
     document: str
     title: str
-    office: str
+    applies_to: str  # "all" or a project code
     version: str
     effective_from: date
     clauses: dict[str, Clause] = field(default_factory=dict)
@@ -46,7 +47,7 @@ class PolicyVersion:
         return {
             "document": self.document,
             "title": self.title,
-            "office": self.office,
+            "applies_to": self.applies_to,
             "version": self.version,
             "effective_from": self.effective_from.isoformat(),
             "source": self.source,
@@ -65,7 +66,7 @@ class PolicyVersion:
         return cls(
             document=d["document"],
             title=d["title"],
-            office=d["office"],
+            applies_to=d["applies_to"],
             version=str(d["version"]),
             effective_from=date.fromisoformat(d["effective_from"]),
             clauses=clauses,
@@ -91,7 +92,7 @@ def parse_policy(text: str, source: str = "") -> PolicyVersion:
     except ValueError as exc:
         raise PolicyFormatError(f"{source}: unterminated front matter") from exc
     meta = yaml.safe_load(front) or {}
-    for key in ("document", "title", "office", "version", "effective_from"):
+    for key in ("document", "title", "applies_to", "version", "effective_from"):
         if key not in meta:
             raise PolicyFormatError(f"{source}: front matter needs '{key}'")
     eff = meta["effective_from"]
@@ -132,7 +133,7 @@ def parse_policy(text: str, source: str = "") -> PolicyVersion:
     return PolicyVersion(
         document=str(meta["document"]),
         title=str(meta["title"]),
-        office=str(meta["office"]),
+        applies_to=str(meta["applies_to"]),
         version=str(meta["version"]),
         effective_from=eff,
         clauses=clauses,
@@ -185,12 +186,17 @@ class Corpus:
     def documents(self) -> list[str]:
         return sorted({v.document for v in self.versions})
 
-    def offices(self) -> list[str]:
-        return sorted({v.office for v in self.versions})
+    def projects(self) -> list[str]:
+        """Project codes that have their own annex."""
+        return sorted({v.applies_to for v in self.versions if v.applies_to != "all"})
 
-    def document_for_office(self, office: str) -> str | None:
-        docs = {v.document for v in self.versions if v.office == office}
-        return next(iter(docs)) if len(docs) == 1 else None
+    def documents_for_project(self, project: str) -> list[str]:
+        """The general documents plus the project's annex; empty for an unknown project."""
+        if project not in self.projects():
+            return []
+        general = sorted({v.document for v in self.versions if v.applies_to == "all"})
+        annex = sorted({v.document for v in self.versions if v.applies_to == project})
+        return annex + general
 
     def history(self, document: str) -> list[PolicyVersion]:
         return [v for v in self.versions if v.document == document]

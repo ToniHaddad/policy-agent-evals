@@ -1,22 +1,30 @@
 """The reference agent: the system under test.
 
-It stands in for a deployed policy assistant. Like a real one, it does not
-read the policy folder live: it answers from a knowledge snapshot taken when
-it was last "published" (``evals snapshot``). If a policy owner publishes a
-new version and nobody refreshes the snapshot, the agent keeps citing what it
-knew. That is the failure this repo exists to catch.
+It stands in for a deployed procedures assistant that warehouse keepers ask
+from their phones. Like a real one, it does not read the procedure folder
+live: it answers from a knowledge snapshot taken when it was last
+"published" (``evals snapshot``). If a policy owner publishes a new version
+and nobody refreshes the snapshot, the agent keeps citing what it knew. That
+is the failure this repo exists to catch.
 
 How it answers, in order:
-1. No office or no travel date: ask, because the version in force depends on it.
-2. Pick the version in force on the travel date from its snapshot.
-3. Read facts from the question with English patterns: days until departure,
-   a nightly hotel rate, "above the limit", "my hotel", "too late".
-4. A personal question missing the deciding number: ask for it.
-5. A rule broken (too few days, rate above the ceiling): escalate to the
-   travel coordinator, citing the broken rule and the exceptions clause.
-6. A number given and within the rule: answer, citing that rule.
-7. Otherwise BM25 over the clauses of that version; answer with the top clause,
-   or ask the user to rephrase if nothing matches.
+1. No known project or no movement date: ask, because the documents and the
+   version in force depend on them.
+2. Use the general Warehouse Procedure plus the project's annex, each in the
+   version in force on the movement date (from its snapshot).
+3. Read facts from the question with English patterns: pieces (and
+   "12 boxes + 6 pieces ... 24 per box"), days to expiry, "expired", damage,
+   transfer, partner, donation.
+4. Expired stock: escalate (it may never be dispatched).
+5. Damage: ask for the number of pieces if missing, else escalate the
+   write-off to the operations manager, naming who else must sign.
+6. Transfer to another project: answer "no" where the annex forbids it,
+   otherwise escalate (the operations manager creates transfers).
+7. Partner dispatch and donations: answer from the annex clause.
+8. Days to expiry given: escalate inside the annex's window, else answer.
+   A question about specific stock near expiry with no date: ask.
+9. Otherwise BM25 over the clauses in force; answer with the top clause, or
+   ask the user to rephrase if nothing matches.
 """
 
 from __future__ import annotations
@@ -42,57 +50,75 @@ NUMBER_WORDS = {
     )
 }
 _NUM = r"(\d+|" + "|".join(NUMBER_WORDS) + r")"
-DAYS = re.compile(rf"\b{_NUM}\s+(?:calendar\s+|working\s+)?days?\b")
-RATE = re.compile(r"(?:usd|us\$|\$)\s*(\d+)|(\d+)\s*(?:usd|us dollars|dollars|\$)")
-OVER_LIMIT = re.compile(
-    r"\b(above|over|exceed\w*|more than|higher than)\s+(the\s+)?"
-    r"(usual\s+|normal\s+|hotel\s+|allowed\s+)?(limit|ceiling|maximum|cap|rate)\b"
-)
-OWN_HOTEL = re.compile(r"\b(my|our) hotel\b|\bthe hotel i\b")
-TIMING = re.compile(r"\b(too late|enough notice|in time|left it late)\b")
+BOXES = re.compile(rf"\b{_NUM}\s+boxes?\b(?:\s*(?:\+|and)\s*{_NUM}\s+pieces?)?")
+PER_BOX = re.compile(r"\b(\d+)\s*(?:per|a|/)\s*box\b")
+PIECES = re.compile(rf"\b{_NUM}\s+(?:damaged\s+)?pieces?\b")
+EXPIRY_DAYS = re.compile(rf"\bexpires?\s+in\s+{_NUM}\s+days?\b|\b{_NUM}\s+days?\s+(?:before|to|until|from)\s+expiry\b")
+EXPIRED = re.compile(r"\b(has|have|had|already|is|are)?\s*expired\b")
+DAMAGE = re.compile(r"\b(damaged|crushed|broken|spoiled|torn|leaking|flood\w*|got wet|water damage)\b")
+TRANSFER = re.compile(r"\btransfer\w*\b.*\bproject\b|\bproject\b.*\btransfer\w*\b")
+PARTNER = re.compile(r"\bpartner\b")
+DONATION = re.compile(r"\bdonat\w*|\bdonor\b")
+EXPIRY = re.compile(r"\bexpir\w*")
+NEAR_EXPIRY_PERSONAL = re.compile(r"\b(still|too close|close to)\b")
 
-ADVANCE_RULE = re.compile(r"at least (\d+) calendar days before departure")
-CEILING_RULE = re.compile(r"may not exceed USD (\d+) per night")
-APPROVER = re.compile(r"exception approved by the ([A-Z][a-z]+(?: (?:of )?[A-Z][a-z]+)*)")
+WRITE_OFF_LIMIT = re.compile(r"up to (\d+) pieces")
+CO_SIGNER = re.compile(r"Above (\d+) pieces the ([a-zA-Z0-9\- ]+?) must also sign")
+INFORMED = re.compile(r"Above (\d+) pieces the ([a-zA-Z ]+?) is informed")
+EXPIRY_WINDOW = re.compile(r"within (\d+) days of its expiry date")
+FORBIDS_TRANSFER = re.compile(r"may not be transferred")
 
 MIN_SCORE = 1.0
 
 
+def _num(tok: str | None) -> int | None:
+    if tok is None:
+        return None
+    return int(tok) if tok.isdigit() else NUMBER_WORDS[tok]
+
+
 @dataclass
 class Facts:
-    days: int | None
-    rate: int | None
-    over_limit: bool
-    own_hotel: bool
-    timing: bool
+    pieces: int | None
+    boxes_without_size: bool
+    expiry_days: int | None
+    expired: bool
+    damage: bool
+    transfer: bool
+    partner: bool
+    donation: bool
+    expiry_topic: bool
+    near_expiry_personal: bool
 
 
 def read_facts(question: str) -> Facts:
     q = fold(question)
-    days = None
-    m = DAYS.search(q)
-    if m:
-        tok = m.group(1)
-        days = int(tok) if tok.isdigit() else NUMBER_WORDS[tok]
-    rate = None
-    r = RATE.search(q)
-    if r:
-        rate = int(r.group(1) or r.group(2))
+    pieces, boxes_without_size = None, False
+    b = BOXES.search(q)
+    if b:
+        per = PER_BOX.search(q)
+        if per:
+            pieces = _num(b.group(1)) * int(per.group(1)) + (_num(b.group(2)) or 0)
+        else:
+            boxes_without_size = True
+    else:
+        p = PIECES.search(q)
+        if p:
+            pieces = _num(p.group(1))
+    e = EXPIRY_DAYS.search(q)
+    expiry_days = _num(e.group(1) or e.group(2)) if e else None
     return Facts(
-        days=days,
-        rate=rate,
-        over_limit=bool(OVER_LIMIT.search(q)),
-        own_hotel=bool(OWN_HOTEL.search(q)),
-        timing=bool(TIMING.search(q)),
+        pieces=pieces,
+        boxes_without_size=boxes_without_size,
+        expiry_days=expiry_days,
+        expired=bool(EXPIRED.search(q)),
+        damage=bool(DAMAGE.search(q)),
+        transfer=bool(TRANSFER.search(q)),
+        partner=bool(PARTNER.search(q)),
+        donation=bool(DONATION.search(q)),
+        expiry_topic=bool(EXPIRY.search(q)),
+        near_expiry_personal=bool(NEAR_EXPIRY_PERSONAL.search(q)),
     )
-
-
-def _find(version: PolicyVersion, pattern: re.Pattern) -> tuple[Clause, re.Match] | None:
-    for c in version.clauses.values():
-        m = pattern.search(c.text)
-        if m:
-            return c, m
-    return None
 
 
 class ReferenceAgent:
@@ -101,12 +127,11 @@ class ReferenceAgent:
     def __init__(self, knowledge: Corpus, snapshot_id: str = ""):
         self.knowledge = knowledge
         self.snapshot_id = snapshot_id or knowledge.fingerprint
-        self._indexes: dict[tuple[str, str], BM25] = {}
+        self._indexes: dict[tuple, BM25] = {}
 
     @classmethod
     def from_snapshot(cls, path: str | Path = DEFAULT_SNAPSHOT) -> "ReferenceAgent":
-        raw = Path(path).read_bytes()
-        data = json.loads(raw)
+        data = json.loads(Path(path).read_bytes())
         return cls(Corpus.from_snapshot(data), data.get("corpus_fingerprint", ""))
 
     def describe(self) -> dict:
@@ -118,99 +143,135 @@ class ReferenceAgent:
         }
 
     # -- helpers -----------------------------------------------------------
-    def _cite(self, v: PolicyVersion, c: Clause) -> Citation:
+    @staticmethod
+    def _cite(v: PolicyVersion, c: Clause) -> Citation:
         return Citation(v.document, v.version, c.id)
 
-    def _ask(self, text: str) -> AgentResponse:
+    @staticmethod
+    def _ask(text: str) -> AgentResponse:
         return AgentResponse(answer=text, action="ask_clarification", citations=[])
 
-    def _search(self, v: PolicyVersion, question: str) -> tuple[Clause, float] | None:
-        key = (v.document, v.version)
-        clauses = list(v.clauses.values())
+    @staticmethod
+    def _by_title(versions: list[PolicyVersion], word: str) -> tuple[PolicyVersion, Clause] | None:
+        for v in versions:
+            for c in v.clauses.values():
+                if word.lower() in c.title.lower():
+                    return v, c
+        return None
+
+    def _search(self, versions: list[PolicyVersion], question: str):
+        key = tuple((v.document, v.version) for v in versions)
+        pairs = [(v, c) for v in versions for c in v.clauses.values()]
         if key not in self._indexes:
-            self._indexes[key] = BM25([f"{c.title} {c.title} {c.text}" for c in clauses])
+            self._indexes[key] = BM25([f"{c.title} {c.title} {c.text}" for _, c in pairs])
         scores = self._indexes[key].scores(question)
-        best = max(range(len(clauses)), key=lambda i: scores[i])
-        return clauses[best], scores[best]
+        best = max(range(len(pairs)), key=lambda i: scores[i])
+        return pairs[best][0], pairs[best][1], scores[best]
+
+    def _answer(self, v: PolicyVersion, c: Clause, lead: str = "") -> AgentResponse:
+        return AgentResponse(answer=f"{lead}{c.title} ({c.id}): {c.text}", action="answer",
+                             citations=[self._cite(v, c)])
 
     # -- the agent ---------------------------------------------------------
     def ask(self, request: AgentRequest) -> AgentResponse:
-        doc = self.knowledge.document_for_office(request.office)
-        if doc is None:
-            offices = ", ".join(self.knowledge.offices())
-            return self._ask(f"Which office do you travel for? I hold policies for: {offices}.")
-        if not request.travel_date:
+        docs = self.knowledge.documents_for_project(request.project or "")
+        if not docs:
+            projects = ", ".join(self.knowledge.projects())
+            return self._ask(f"Which project funds this stock? The rules differ by project ({projects}).")
+        if not request.movement_date:
             return self._ask(
-                "What date does your trip start? The rule that applies depends on "
-                "the policy version in force on your travel date."
+                "What is the date of the movement? The procedure version that applies "
+                "depends on it."
             )
-        v = self.knowledge.version_in_force(doc, date.fromisoformat(request.travel_date))
-        if v is None:
-            return self._ask("I have no travel policy in force for that date. Please check the date.")
+        day = date.fromisoformat(request.movement_date)
+        versions = [v for v in (self.knowledge.version_in_force(d, day) for d in docs) if v]
+        if not versions:
+            return self._ask("No procedure is in force for that date. Please check the date.")
+        annex = [v for v in versions if v.applies_to != "all"]
+        general = [v for v in versions if v.applies_to == "all"]
+        f = read_facts(request.question)
 
-        facts = read_facts(request.question)
-        advance = _find(v, ADVANCE_RULE)
-        ceiling = _find(v, CEILING_RULE)
-        exception = next((c for c in v.clauses.values() if "exception approved by" in c.text), None)
+        if f.expired:
+            found = self._by_title(general, "Expired stock")
+            if found:
+                v, c = found
+                return AgentResponse(
+                    answer=f"No. Expired stock must never be dispatched ({c.id}). Move it to "
+                    "quarantine and record it on a damage report; the operations manager "
+                    "approves the write-off and disposal.",
+                    action="escalate", citations=[self._cite(v, c)])
 
-        if facts.own_hotel and facts.rate is None and not facts.over_limit:
-            return self._ask("What is the nightly rate of the hotel, in USD? The answer depends on it.")
-        if facts.timing and facts.days is None:
-            return self._ask("How many days before departure are you submitting the travel request?")
-
-        broken: list[tuple[Clause, str]] = []
-        if facts.days is not None and advance:
-            need = int(advance[1].group(1))
-            if facts.days < need:
-                broken.append((advance[0], f"{facts.days} days is less than the {need}-day minimum"))
-        if ceiling and (facts.over_limit or (facts.rate is not None and facts.rate > int(ceiling[1].group(1)))):
-            limit = ceiling[1].group(1)
-            what = f"USD {facts.rate}" if facts.rate is not None else "Your hotel rate"
-            broken.append((ceiling[0], f"{what} is above the USD {limit} per night ceiling"))
-
-        if broken:
-            cites = [self._cite(v, c) for c, _ in broken]
-            approver = "the approver named in the policy"
-            if exception:
-                cites.append(self._cite(v, exception))
-                m = APPROVER.search(exception.text)
-                if m:
-                    approver = "the " + m.group(1).strip()
-            reasons = "; ".join(f"{why} ({c.id})" for c, why in broken)
-            answer = (
-                f"This needs an exception: {reasons}. Do not book yet. Send an exception "
-                f"request to the travel coordinator, who passes it to {approver} for approval"
-                + (f" ({exception.id})." if exception else ".")
-            )
-            return AgentResponse(answer=answer, action="escalate", citations=cites)
-
-        if facts.days is not None and advance:
-            need = int(advance[1].group(1))
+        if f.damage:
+            if f.boxes_without_size:
+                return self._ask("How many pieces are in each box? Write-offs are recorded in pieces.")
+            if f.pieces is None:
+                return self._ask("How many pieces were damaged? The approval needed depends on the quantity.")
+            rule = self._by_title(annex, "Write-off")
+            report = self._by_title(general, "Damage report")
+            cites, extra = [], ""
+            if rule:
+                v, c = rule
+                cites.append(self._cite(v, c))
+                co, inf = CO_SIGNER.search(c.text), INFORMED.search(c.text)
+                if co and f.pieces > int(co.group(1)):
+                    extra = f" {f.pieces} pieces is above {co.group(1)}, so the {co.group(2)} must also sign ({c.id})."
+                elif co:
+                    extra = f" {f.pieces} pieces is within the operations manager's limit of {co.group(1)} ({c.id})."
+                elif inf and f.pieces > int(inf.group(1)):
+                    extra = f" Above {inf.group(1)} pieces the {inf.group(2)} is informed ({c.id})."
+            if report:
+                cites.append(self._cite(*report))
             return AgentResponse(
-                answer=f"Yes. {facts.days} days meets the {need}-day minimum in {advance[0].id}. "
-                "Submit the travel request as usual.",
-                action="answer",
-                citations=[self._cite(v, advance[0])],
-            )
-        if facts.rate is not None and ceiling:
-            limit = ceiling[1].group(1)
-            return AgentResponse(
-                answer=f"Yes. USD {facts.rate} per night is within the USD {limit} ceiling in {ceiling[0].id}.",
-                action="answer",
-                citations=[self._cite(v, ceiling[0])],
-            )
+                answer="Do not remove the stock yet. Record a damage report with a written "
+                f"description of the incident; it becomes a write-off only when the operations "
+                f"manager approves it.{extra}",
+                action="escalate", citations=cites)
 
-        clause, score = self._search(v, request.question)
+        if f.transfer:
+            rule = self._by_title(annex, "Transfers")
+            if rule:
+                v, c = rule
+                if FORBIDS_TRANSFER.search(c.text):
+                    return self._answer(v, c, "No. ")
+                return AgentResponse(
+                    answer=f"Only the operations manager can create this transfer. {c.text} ({c.id})",
+                    action="escalate", citations=[self._cite(v, c)])
+
+        if f.partner:
+            rule = self._by_title(annex, "Dispatch destinations")
+            if rule:
+                return self._answer(*rule)
+
+        if f.donation:
+            rule = self._by_title(annex, "donation")
+            if rule:
+                return self._answer(*rule)
+
+        if f.expiry_topic:
+            rule = self._by_title(annex, "Near-expiry")
+            window = EXPIRY_WINDOW.search(rule[1].text) if rule else None
+            if f.expiry_days is not None and window:
+                v, c = rule
+                limit = int(window.group(1))
+                if f.expiry_days < limit:
+                    return AgentResponse(
+                        answer=f"Yes. {f.expiry_days} days is inside the {limit}-day window in {c.id}: "
+                        "release it for distribution or report it to the operations manager now.",
+                        action="escalate", citations=[self._cite(v, c)])
+                return AgentResponse(
+                    answer=f"Not yet. {f.expiry_days} days is outside the {limit}-day window in {c.id}. "
+                    "Keep issuing the earliest expiry first.",
+                    action="answer", citations=[self._cite(v, c)])
+            if f.expiry_days is None and f.near_expiry_personal:
+                return self._ask("What is the expiry date on the batch? The answer depends on how many days are left.")
+
+        v, c, score = self._search(versions, request.question)
         if score < MIN_SCORE:
             return self._ask(
-                "I could not find a clause in the travel policy that matches your question. "
+                "I could not find a procedure clause that matches your question. "
                 "Could you rephrase it?"
             )
-        return AgentResponse(
-            answer=f"{clause.title} ({clause.id}): {clause.text}",
-            action="answer",
-            citations=[self._cite(v, clause)],
-        )
+        return self._answer(v, c)
 
 
 def write_snapshot(corpus: Corpus, path: str | Path = DEFAULT_SNAPSHOT) -> Path:

@@ -62,7 +62,7 @@ def _clauses_html(r: CaseResult, corpus: Corpus) -> str:
         clause = v.clauses.get(cit.clause) if v else None
         if clause is None:
             out.append(f'<div class="clause missing"><h4>{esc(cit.label())}</h4>'
-                       f"<p>Not found in the policy corpus.</p></div>")
+                       f"<p>Not found in the procedure documents.</p></div>")
         else:
             out.append(f'<div class="clause"><h4>{esc(cit.label())} &middot; {esc(clause.title)}</h4>'
                        f"<p>{esc(clause.text)}</p></div>")
@@ -76,7 +76,7 @@ def render_review_sheet(run: RunResult, corpus: Corpus) -> str:
         name = f"v{i}"
         cards.append(f"""<li class="rcard" id="{esc(c.id)}" data-status="{r.status}">
 <div class="rhead"><span class="pill {r.status}">Checks: {STATUS_LABEL[r.status]}</span>
-<span class="cid">{esc(c.id)}</span><span class="cmeta">{esc(c.office)} &middot; travel {esc(c.travel_date or 'no date')} &middot; {esc(c.language)}</span></div>
+<span class="cid">{esc(c.id)}</span><span class="cmeta">{esc(c.project or 'no project')} &middot; {esc(c.warehouse or 'no warehouse')} &middot; moved {esc(c.movement_date or 'no date')} &middot; {esc(c.language)}</span></div>
 <div class="cols"><div class="col"><p class="label">Question</p><blockquote dir="auto">{esc(c.question)}</blockquote>
 <p class="label" style="margin-top:8px">Answer &middot; action: {esc(resp.action or 'none')}</p>
 <p class="answer" dir="auto">{esc(resp.answer or resp.error or '')}</p></div>
@@ -88,7 +88,7 @@ def render_review_sheet(run: RunResult, corpus: Corpus) -> str:
     m = run.mode.value
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{m} &middot; Review sheet &middot; Policy agent evals</title><meta name="eval-mode" content="{m}">
+<title>{m} &middot; Review sheet &middot; Procedure agent evals</title><meta name="eval-mode" content="{m}">
 <style>{CSS}{REVIEW_CSS}</style></head><body data-run="{esc(run.recorded_at)}">
 {mode_banner(run)}
 <main>

@@ -30,13 +30,13 @@ def _print_run(run: RunResult, paths: dict) -> None:
     print(rule)
     for r in run.results:
         if r.status in ("fail", "unexpected_pass"):
-            print(f"\n{r.status.upper()}  {r.case.id}  ({r.case.office}, travel {r.case.travel_date}, {r.case.language})")
+            print(f"\n{r.status.upper()}  {r.case.id}  ({r.case.context_label()})")
             print(f"  question: {r.case.question}")
             print(f"  reply:    {r.response.action} {[c.label() for c in r.response.citations]}")
             for k in r.failed_checks():
                 print(f"  {k.name}: {k.message}")
     if run.warnings:
-        print(f"\n{len(run.warnings)} case label(s) no longer match the policies:")
+        print(f"\n{len(run.warnings)} case label(s) no longer match the procedures:")
         for w in run.warnings:
             print(f"  - {w}")
     print("\nby language and tag:")
@@ -58,13 +58,13 @@ def _step_summary(run: RunResult) -> None:
              run.summary_line(), ""]
     bad = [r for r in run.results if r.status in ("fail", "unexpected_pass")]
     if bad:
-        lines += ["| case | travel date | failed assertion |", "|---|---|---|"]
+        lines += ["| case | movement date | failed assertion |", "|---|---|---|"]
         for r in bad:
             for k in r.failed_checks() or []:
                 msg = k.message.replace("|", "\\|")
-                lines.append(f"| `{r.case.id}` | {r.case.travel_date} | **{k.name}**: {msg} |")
+                lines.append(f"| `{r.case.id}` | {r.case.movement_date} | **{k.name}**: {msg} |")
             if r.status == "unexpected_pass":
-                lines.append(f"| `{r.case.id}` | {r.case.travel_date} | known failure now passes |")
+                lines.append(f"| `{r.case.id}` | {r.case.movement_date} | known failure now passes |")
     with open(target, "a", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n\n")
 
@@ -138,12 +138,12 @@ def cmd_serve_agent(a) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="evals", description="Regression tests for a policy assistant.")
+    p = argparse.ArgumentParser(prog="evals", description="Regression tests for a procedures assistant.")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     def common(sp):
-        sp.add_argument("--policies", default="policies", help="policy corpus folder")
-        sp.add_argument("--cases", default="cases/travel.yaml")
+        sp.add_argument("--policies", default="policies", help="procedure documents folder")
+        sp.add_argument("--cases", default="cases/procedures.yaml")
         sp.add_argument("--known", default="cases/known_failures.yaml")
         sp.add_argument("--transcripts", default=DEFAULT_TRANSCRIPT)
         sp.add_argument("--out", default="reports", help="where reports are written")
@@ -159,7 +159,7 @@ def build_parser() -> argparse.ArgumentParser:
     common(rp)
     rp.set_defaults(fn=cmd_replay)
 
-    s = sub.add_parser("snapshot", help="refresh the reference agent's knowledge from the policies")
+    s = sub.add_parser("snapshot", help="refresh the reference agent's knowledge from the procedure documents")
     s.add_argument("--policies", default="policies")
     s.add_argument("--snapshot", default=str(DEFAULT_SNAPSHOT))
     s.set_defaults(fn=cmd_snapshot)

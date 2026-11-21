@@ -2,13 +2,16 @@
 
 Request (what the harness sends)::
 
-    {"question": "...", "context": {"office": "lebanon",
-     "travel_date": "2026-11-24" | null, "language": "en" | "fr" | "ar"}}
+    {"question": "...", "context": {"project": "FA-2026" | null,
+     "warehouse": "WH-12", "movement_date": "2026-11-24" | null,
+     "language": "en" | "fr" | "ar"}}
 
 Response (what the agent returns)::
 
     {"answer": "...", "action": "answer" | "ask_clarification" | "escalate",
-     "citations": [{"document": "lb-travel", "version": "2.0", "clause": "LB-3.2"}]}
+     "citations": [{"document": "fa-2026-annex", "version": "2.0", "clause": "FA-4.2"}]}
+
+``escalate`` means the request goes to the operations manager.
 """
 
 from __future__ import annotations
@@ -40,16 +43,18 @@ class Citation:
 @dataclass(frozen=True)
 class AgentRequest:
     question: str
-    office: str
-    travel_date: str | None
+    project: str | None
+    warehouse: str | None
+    movement_date: str | None
     language: str
 
     def to_json(self) -> dict:
         return {
             "question": self.question,
             "context": {
-                "office": self.office,
-                "travel_date": self.travel_date,
+                "project": self.project,
+                "warehouse": self.warehouse,
+                "movement_date": self.movement_date,
                 "language": self.language,
             },
         }
@@ -60,11 +65,12 @@ class AgentRequest:
             ctx = d["context"]
             return cls(
                 question=str(d["question"]),
-                office=str(ctx["office"]),
-                travel_date=ctx.get("travel_date"),
+                project=ctx.get("project"),
+                warehouse=ctx.get("warehouse"),
+                movement_date=ctx.get("movement_date"),
                 language=str(ctx.get("language", "en")),
             )
-        except (KeyError, TypeError) as exc:
+        except (KeyError, TypeError, AttributeError) as exc:
             raise ResponseFormatError(f"bad request: {exc}") from exc
 
 

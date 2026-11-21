@@ -113,7 +113,7 @@ def mode_banner(run: RunResult) -> str:
     return (
         f'<header class="banner replay" data-mode="REPLAY"><div class="mode">REPLAY</div>'
         f'<div class="meta">No agent was called. Re-checked replies that <b>{who}</b> gave on '
-        f'<span class="nw">{esc(run.recorded_at)}</span> against today\'s cases and policies'
+        f'<span class="nw">{esc(run.recorded_at)}</span> against today\'s cases and procedures'
         + (f" &middot; {esc(run.transcript_path)}" if run.transcript_path else "")
         + "</div></header>"
     )
@@ -126,7 +126,8 @@ def _case_html(r: CaseResult) -> str:
         for k in r.checks
     )
     expected = c.expect.action + (f" &middot; {esc(c.expect.clause)} v{esc(c.expect.version)}" if c.expect.clause else "")
-    meta = (f"{esc(c.office)} &middot; travel {esc(c.travel_date or 'no date')} &middot; {esc(c.language)}"
+    meta = (f"{esc(c.project or 'no project')} &middot; {esc(c.warehouse or 'no warehouse')} &middot; "
+            f"moved {esc(c.movement_date or 'no date')} &middot; {esc(c.language)}"
             f" &middot; expected {expected} &middot; got {esc(resp.action or 'no reply')}")
     cites = "".join(f"<li>{esc(x.label())}</li>" for x in resp.citations) or "<li>no citations</li>"
     failed = "".join(f"<li><b>{esc(k.name)}</b>: {esc(k.message)}</li>" for k in r.failed_checks())
@@ -165,22 +166,23 @@ def render_report(run: RunResult) -> str:
     warn = ""
     if run.warnings:
         items = "".join(f"<li>{esc(w)}</li>" for w in run.warnings)
-        warn = (f'<div class="warn"><b>{len(run.warnings)} case label(s) no longer match the policies.</b> '
-                f"The agent is still checked against the policies; update these labels.<ul>{items}</ul></div>")
+        warn = (f'<div class="warn"><b>{len(run.warnings)} case label(s) no longer match the procedures.</b> '
+                f"The agent is still checked against the procedures; update these labels.<ul>{items}</ul></div>")
     order = {"fail": 0, "unexpected_pass": 1, "known_fail": 2, "pass": 3}
     rows = "".join(_case_html(r) for r in sorted(run.results, key=lambda r: order[r.status]))
     m = run.mode.value
     payload = json.dumps({"mode": m}).replace("<", "\\u003c")
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{m} &middot; Policy agent evals</title><meta name="eval-mode" content="{m}">
+<title>{m} &middot; Procedure agent evals</title><meta name="eval-mode" content="{m}">
 <style>{CSS}</style></head><body class="mode-{m.lower()}">
 {mode_banner(run)}
 <main>
-<h1>Travel policy assistant: {"live run" if run.mode is Mode.LIVE else "replayed run"}</h1>
-<p class="lede">Each case asks the assistant a staff question with an office, a travel date and a language,
-then checks the action it chose, the clause and policy version it cited, and that every cited clause is in
-force on the travel date. Answer wording is reviewed by a person on the review sheet.</p>
+<h1>Warehouse procedures assistant: {"live run" if run.mode is Mode.LIVE else "replayed run"}</h1>
+<p class="lede">Each case asks the assistant a warehouse keeper's question with a project, a warehouse, the
+date of the stock movement and a language, then checks the action it chose, the clause and procedure version
+it cited, and that every cited clause is in force on the movement date. Answer wording is reviewed by a
+person on the review sheet.</p>
 <section class="tiles">{tiles}</section>
 {warn}
 <div class="filters" role="group" aria-label="Filter cases">
@@ -191,7 +193,7 @@ force on the travel date. Answer wording is reviewed by a person on the review s
 </div>
 <ol class="cases">{rows}</ol>
 </main>
-<footer><span class="mode-tag">{m}</span> report &middot; policy corpus {esc(run.corpus_fingerprint)} &middot;
+<footer><span class="mode-tag">{m}</span> report &middot; procedure documents {esc(run.corpus_fingerprint)} &middot;
 generated {esc(run.started_at)}</footer>
 <script type="application/json" id="run-meta">{payload}</script>
 <script>{FILTER_JS}</script>
