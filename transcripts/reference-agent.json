@@ -1,944 +1,1020 @@
 {
  "kind": "policy-agent-evals/transcripts",
  "format": 1,
- "recorded_at": "2026-11-20T21:41:30+00:00",
+ "recorded_at": "2026-11-21T23:07:06+00:00",
  "agent": {
   "name": "reference-bm25",
   "kind": "in-process",
-  "knowledge_snapshot": "d9ed48bd59d5",
+  "knowledge_snapshot": "309ef3e95f17",
   "versions_known": [
-   "ke-travel v1.0",
-   "lb-travel v1.0",
-   "lb-travel v2.0"
+   "ea-2026-annex v1.0",
+   "fa-2026-annex v1.0",
+   "fa-2026-annex v2.0",
+   "inkind-annex v1.0",
+   "wh-procedure v1.0"
   ]
  },
  "entries": [
   {
-   "case": "office-hotel-ceiling-lb",
+   "case": "project-partner-fa",
    "request": {
-    "question": "What is the maximum hotel rate per night I can book?",
+    "question": "Can I dispatch this stock to a partner organization?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-25",
+     "project": "FA-2026",
+     "warehouse": "WH-03",
+     "movement_date": "2026-11-20",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Hotel ceiling (LB-4.1): The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+    "answer": "Dispatch destinations (FA-3.1): FA-2026 stock may be dispatched to the Organization's own centres and to a partner organization that has a signed distribution agreement for FA-2026.",
     "action": "answer",
     "citations": [
      {
-      "document": "lb-travel",
+      "document": "fa-2026-annex",
       "version": "2.0",
-      "clause": "LB-4.1"
+      "clause": "FA-3.1"
      }
     ]
    }
   },
   {
-   "case": "office-hotel-ceiling-ke",
+   "case": "project-partner-ea",
    "request": {
-    "question": "What is the maximum hotel rate per night I can book?",
+    "question": "Can I dispatch this stock to a partner organization?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-25",
+     "project": "EA-2026",
+     "warehouse": "WH-03",
+     "movement_date": "2026-11-20",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Hotel ceiling (KE-4.1): The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+    "answer": "Dispatch destinations (EA-3.1): EA-2026 stock may be dispatched only to the Organization's own centres and to shelters the Organization runs. It may never be dispatched to a partner organization.",
     "action": "answer",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "ea-2026-annex",
       "version": "1.0",
-      "clause": "KE-4.1"
+      "clause": "EA-3.1"
      }
     ]
    }
   },
   {
-   "case": "office-notice-lb",
+   "case": "project-partner-ik",
    "request": {
-    "question": "How many days before departure must I submit my travel request?",
+    "question": "Can I dispatch this stock to a partner organization?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-30",
+     "project": "INKIND",
+     "warehouse": "WH-03",
+     "movement_date": "2026-11-20",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Advance booking (LB-3.2): Submit the travel request at least 10 calendar days before departure, so that the security focal point and finance can both review it. A request submitted later than this needs an exception under LB-6.1.",
+    "answer": "Dispatch destinations (IK-3.1): INKIND stock may be dispatched to the Organization's own centres and to partner organizations. No distribution agreement is needed.",
     "action": "answer",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-3.2"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-notice-ke",
-   "request": {
-    "question": "How many days before departure must I submit my travel request?",
-    "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-30",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Advance booking (KE-3.1): Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "ke-travel",
+      "document": "inkind-annex",
       "version": "1.0",
-      "clause": "KE-3.1"
+      "clause": "IK-3.1"
      }
     ]
    }
   },
   {
-   "case": "office-approver-lb",
+   "case": "project-transfer-fa",
    "request": {
-    "question": "Who approves an exception to the travel rules?",
+    "question": "Can I transfer 40 pieces of rice from this project to another project?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-27",
+     "project": "FA-2026",
+     "warehouse": "WH-07",
+     "movement_date": "2026-11-18",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Exceptions (LB-6.1): Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+    "answer": "No. Transfers between projects (FA-5.1): FA-2026 stock may not be transferred to another project. It may only move between warehouses within FA-2026.",
     "action": "answer",
     "citations": [
      {
-      "document": "lb-travel",
+      "document": "fa-2026-annex",
       "version": "2.0",
-      "clause": "LB-6.1"
+      "clause": "FA-5.1"
      }
     ]
    }
   },
   {
-   "case": "office-approver-ke",
+   "case": "project-transfer-ea",
    "request": {
-    "question": "Who approves an exception to the travel rules?",
+    "question": "Can I transfer 40 pieces of rice from this project to another project?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-27",
+     "project": "EA-2026",
+     "warehouse": "WH-07",
+     "movement_date": "2026-11-18",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Exceptions (KE-6.1): Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-6.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-claims-lb",
-   "request": {
-    "question": "How long do I have to submit my expense claim after I get back?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-23",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Expense claims (LB-8.1): Submit your expense claim with all receipts within 15 days of your return. Claims submitted later are paid only with the Head of Office's approval.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-8.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-claims-ke",
-   "request": {
-    "question": "How long do I have to submit my expense claim after I get back?",
-    "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-23",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Expense claims (KE-8.1): Submit your expense claim with all receipts within 30 days of your return.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-8.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-per-diem-lb",
-   "request": {
-    "question": "What is the daily meal allowance when I travel?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-26",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Meal allowance (LB-4.2): The daily meal allowance (per diem) is USD 35 for each full day of travel and USD 20 for the day of departure and the day of return. Meals included in a workshop or hotel rate are deducted.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-4.2"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-per-diem-ke",
-   "request": {
-    "question": "What is the daily meal allowance when I travel?",
-    "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-26",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Meal allowance (KE-4.2): The daily meal allowance (per diem) is KES 4,000 for each night away from your duty station. No allowance is paid for day trips.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-4.2"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-hotel-115-lb",
-   "request": {
-    "question": "My hotel costs USD 115 per night. Is that within policy?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-26",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Yes. USD 115 per night is within the USD 120 ceiling in LB-4.1.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-4.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "office-hotel-115-ke",
-   "request": {
-    "question": "My hotel costs USD 115 per night. Is that within policy?",
-    "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-26",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "This needs an exception: USD 115 is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "answer": "Only the operations manager can create this transfer. EA-2026 stock may be transferred to another project only during a declared emergency. The operations manager creates the transfer after the EA-2026 project manager agrees. (EA-5.1)",
     "action": "escalate",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "ea-2026-annex",
       "version": "1.0",
-      "clause": "KE-4.1"
-     },
-     {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-6.1"
+      "clause": "EA-5.1"
      }
     ]
    }
   },
   {
-   "case": "change-notice-rule-before",
+   "case": "project-transfer-ik",
    "request": {
-    "question": "How many days in advance must I submit my travel request?",
+    "question": "Can I transfer 40 pieces of rice from this project to another project?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-10-14",
+     "project": "INKIND",
+     "warehouse": "WH-07",
+     "movement_date": "2026-11-18",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Advance booking (LB-3.1): Submit the travel request at least 7 calendar days before departure. A request submitted later than this needs an exception under LB-6.1.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "1.0",
-      "clause": "LB-3.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "change-notice-rule-on-day",
-   "request": {
-    "question": "How many days in advance must I submit my travel request?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-10-15",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Advance booking (LB-3.2): Submit the travel request at least 10 calendar days before departure, so that the security focal point and finance can both review it. A request submitted later than this needs an exception under LB-6.1.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-3.2"
-     }
-    ]
-   }
-  },
-  {
-   "case": "change-8-days-before",
-   "request": {
-    "question": "My trip leaves in 8 days. Can I still submit the travel request normally?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-10-10",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Yes. 8 days meets the 7-day minimum in LB-3.1. Submit the travel request as usual.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "1.0",
-      "clause": "LB-3.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "change-8-days-after",
-   "request": {
-    "question": "My trip leaves in 8 days. Can I still submit the travel request normally?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-10-20",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "This needs an exception: 8 days is less than the 10-day minimum (LB-3.2). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "answer": "Only the operations manager can create this transfer. INKIND stock may be transferred to any project. The operations manager creates the transfer (TRF) and records the receiving project. (IK-5.1)",
     "action": "escalate",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-3.2"
-     },
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-6.1"
+      "document": "inkind-annex",
+      "version": "1.0",
+      "clause": "IK-5.1"
      }
     ]
    }
   },
   {
-   "case": "change-6-days-before",
+   "case": "project-expiry-40-fa",
    "request": {
-    "question": "I only found out today and the trip leaves in 6 days. What should I do?",
+    "question": "The lentils expire in 40 days. Do I need to do anything?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-09-30",
+     "project": "FA-2026",
+     "warehouse": "WH-12",
+     "movement_date": "2026-11-25",
      "language": "en"
     }
    },
    "response": {
-    "answer": "This needs an exception: 6 days is less than the 7-day minimum (LB-3.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "answer": "Yes. 40 days is inside the 45-day window in FA-4.2: release it for distribution or report it to the operations manager now.",
     "action": "escalate",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "1.0",
-      "clause": "LB-3.1"
-     },
-     {
-      "document": "lb-travel",
-      "version": "1.0",
-      "clause": "LB-6.1"
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-4.2"
      }
     ]
    }
   },
   {
-   "case": "change-12-days-after",
+   "case": "project-expiry-40-ik",
    "request": {
-    "question": "My trip leaves in 12 days. Is that enough notice?",
+    "question": "The lentils expire in 40 days. Do I need to do anything?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-02",
+     "project": "INKIND",
+     "warehouse": "WH-12",
+     "movement_date": "2026-11-25",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Yes. 12 days meets the 10-day minimum in LB-3.2. Submit the travel request as usual.",
+    "answer": "Not yet. 40 days is outside the 14-day window in IK-4.1. Keep issuing the earliest expiry first.",
     "action": "answer",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-3.2"
+      "document": "inkind-annex",
+      "version": "1.0",
+      "clause": "IK-4.1"
      }
     ]
    }
   },
   {
-   "case": "missing-date-notice",
+   "case": "project-writeoff-60-fa",
    "request": {
-    "question": "How many days ahead do I need to book my trip?",
+    "question": "60 pieces of canned cheese were damaged by water. Can I write them off?",
     "context": {
-     "office": "lebanon",
-     "travel_date": null,
+     "project": "FA-2026",
+     "warehouse": "WH-05",
+     "movement_date": "2026-11-22",
      "language": "en"
     }
    },
    "response": {
-    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 60 pieces is above 50, so the FA-2026 project manager must also sign (FA-2.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-2.1"
+     },
+     {
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "project-writeoff-60-ea",
+   "request": {
+    "question": "60 pieces of canned cheese were damaged by water. Can I write them off?",
+    "context": {
+     "project": "EA-2026",
+     "warehouse": "WH-05",
+     "movement_date": "2026-11-22",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 60 pieces is within the operations manager's limit of 100 (EA-2.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "ea-2026-annex",
+      "version": "1.0",
+      "clause": "EA-2.1"
+     },
+     {
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "project-donation-ik",
+   "request": {
+    "question": "A donor brought blankets and gave no value. What does the donation receipt need?",
+    "context": {
+     "project": "INKIND",
+     "warehouse": "WH-09",
+     "movement_date": "2026-11-19",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Donation receipt (IK-6.1): The goods received note for a donation needs the donor name, each item with its quantity in pieces and expiry date, and the signature of the person who delivered it. When the donor gives no value, write \"no value declared\"; do not enter an estimate of your own.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "inkind-annex",
+      "version": "1.0",
+      "clause": "IK-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "project-donation-ea",
+   "request": {
+    "question": "A donor brought blankets and gave no value. What does the donation receipt need?",
+    "context": {
+     "project": "EA-2026",
+     "warehouse": "WH-09",
+     "movement_date": "2026-11-19",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "In-kind donations (EA-6.1): EA-2026 does not receive in-kind donations. Donated goods are received under the INKIND annex.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "ea-2026-annex",
+      "version": "1.0",
+      "clause": "EA-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-expiry-40-before",
+   "request": {
+    "question": "The lentils expire in 40 days. Do I need to do anything?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-12",
+     "movement_date": "2026-10-10",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Not yet. 40 days is outside the 30-day window in FA-4.1. Keep issuing the earliest expiry first.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "1.0",
+      "clause": "FA-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-expiry-40-after",
+   "request": {
+    "question": "The lentils expire in 40 days. Do I need to do anything?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-12",
+     "movement_date": "2026-10-20",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Yes. 40 days is inside the 45-day window in FA-4.2: release it for distribution or report it to the operations manager now.",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-rule-before",
+   "request": {
+    "question": "How many days before expiry must stock be released or reported?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-01",
+     "movement_date": "2026-10-14",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Near-expiry stock (FA-4.1): Stock within 30 days of its expiry date must be released for distribution or reported to the operations manager.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "1.0",
+      "clause": "FA-4.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-rule-on-day",
+   "request": {
+    "question": "How many days before expiry must stock be released or reported?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-01",
+     "movement_date": "2026-10-15",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Near-expiry stock (FA-4.2): Stock within 45 days of its expiry date must be released for distribution or reported to the operations manager, so that centres have time to plan a distribution before it expires.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-expiry-35-after",
+   "request": {
+    "question": "This batch of rice expires in 35 days. Is that a problem?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-14",
+     "movement_date": "2026-11-03",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Yes. 35 days is inside the 45-day window in FA-4.2: release it for distribution or report it to the operations manager now.",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "change-expiry-50-after",
+   "request": {
+    "question": "The cooking oil expires in 50 days. Do I need to report it?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-14",
+     "movement_date": "2026-11-05",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Not yet. 50 days is outside the 45-day window in FA-4.2. Keep issuing the earliest expiry first.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "missing-project",
+   "request": {
+    "question": "Can I send these hygiene kits to a partner organization?",
+    "context": {
+     "project": null,
+     "warehouse": "WH-21",
+     "movement_date": "2026-11-20",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Which project funds this stock? The rules differ by project (EA-2026, FA-2026, INKIND).",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "missing-date-8-days",
+   "case": "missing-pieces",
    "request": {
-    "question": "My trip leaves in 8 days, is that enough notice?",
+    "question": "Some boxes of canned cheese were crushed in the truck. Can I write them off?",
     "context": {
-     "office": "lebanon",
-     "travel_date": null,
+     "project": "EA-2026",
+     "warehouse": "WH-21",
+     "movement_date": "2026-11-21",
      "language": "en"
     }
    },
    "response": {
-    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "answer": "How many pieces were damaged? The approval needed depends on the quantity.",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "missing-rate-ke",
+   "case": "missing-expiry",
    "request": {
-    "question": "Do I need extra approval for my hotel?",
+    "question": "Can I still dispatch the biscuits, or are they too close to expiry?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-28",
+     "project": "INKIND",
+     "warehouse": "WH-21",
+     "movement_date": "2026-11-21",
      "language": "en"
     }
    },
    "response": {
-    "answer": "What is the nightly rate of the hotel, in USD? The answer depends on it.",
+    "answer": "What is the expiry date on the batch? The answer depends on how many days are left.",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "missing-rate-lb",
+   "case": "missing-date",
    "request": {
-    "question": "Is my hotel within the allowed rate?",
+    "question": "The lentils expire in 40 days. Do I need to do anything?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-12-05",
+     "project": "FA-2026",
+     "warehouse": "WH-12",
+     "movement_date": null,
      "language": "en"
     }
    },
    "response": {
-    "answer": "What is the nightly rate of the hotel, in USD? The answer depends on it.",
+    "answer": "What is the date of the movement? The procedure version that applies depends on it.",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "missing-days-ke",
+   "case": "missing-box-size",
    "request": {
-    "question": "My trip is coming up soon. Have I left it too late to book?",
+    "question": "8 boxes of soap were damaged. Can I write them off?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-12-03",
+     "project": "FA-2026",
+     "warehouse": "WH-30",
+     "movement_date": "2026-11-23",
      "language": "en"
     }
    },
    "response": {
-    "answer": "How many days before departure are you submitting the travel request?",
+    "answer": "How many pieces are in each box? Write-offs are recorded in pieces.",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "escalate-pitch-lb",
+   "case": "escalate-flood-ea",
    "request": {
-    "question": "My trip leaves in four days and the hotel is above the usual limit. What do I need before I submit?",
+    "question": "120 pieces of canned cheese were damaged in the flood. What do I do?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-24",
+     "project": "EA-2026",
+     "warehouse": "WH-33",
+     "movement_date": "2026-11-24",
      "language": "en"
     }
    },
    "response": {
-    "answer": "This needs an exception: 4 days is less than the 10-day minimum (LB-3.2); Your hotel rate is above the USD 120 per night ceiling (LB-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 120 pieces is above 100, so the emergency coordinator must also sign (EA-2.1).",
     "action": "escalate",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-3.2"
+      "document": "ea-2026-annex",
+      "version": "1.0",
+      "clause": "EA-2.1"
      },
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-4.1"
-     },
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-6.1"
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-6.1"
      }
     ]
    }
   },
   {
-   "case": "escalate-pitch-ke",
+   "case": "escalate-boxes-fa",
    "request": {
-    "question": "My trip leaves in four days and the hotel is above the usual limit. What do I need before I submit?",
+    "question": "12 boxes + 6 pieces of canned cheese (24 per box) were damaged. Can I write them off?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-24",
+     "project": "FA-2026",
+     "warehouse": "WH-05",
+     "movement_date": "2026-11-26",
      "language": "en"
     }
    },
    "response": {
-    "answer": "This needs an exception: 4 days is less than the 5-day minimum (KE-3.1); Your hotel rate is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 294 pieces is above 50, so the FA-2026 project manager must also sign (FA-2.1).",
     "action": "escalate",
     "citations": [
      {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-3.1"
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-2.1"
      },
      {
-      "document": "ke-travel",
+      "document": "wh-procedure",
       "version": "1.0",
-      "clause": "KE-4.1"
-     },
-     {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-6.1"
+      "clause": "WP-6.1"
      }
     ]
    }
   },
   {
-   "case": "escalate-hotel-140-lb",
+   "case": "escalate-expired-ik",
    "request": {
-    "question": "The only hotel near the site costs USD 140 a night. Can I book it?",
+    "question": "The juice in rack 4 expired last week. Can I dispatch it?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-12-01",
+     "project": "INKIND",
+     "warehouse": "WH-18",
+     "movement_date": "2026-11-27",
      "language": "en"
     }
    },
    "response": {
-    "answer": "This needs an exception: USD 140 is above the USD 120 per night ceiling (LB-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
+    "answer": "No. Expired stock must never be dispatched (WP-6.2). Move it to quarantine and record it on a damage report; the operations manager approves the write-off and disposal.",
     "action": "escalate",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-4.1"
-     },
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-6.1"
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-6.2"
      }
     ]
    }
   },
   {
-   "case": "escalate-hotel-140-ke",
+   "case": "escalate-transfer-ea",
    "request": {
-    "question": "The only hotel near the site costs USD 140 a night. Can I book it?",
+    "question": "Can I transfer 200 pieces of tarpaulin to the WASH-2026 project?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-12-01",
+     "project": "EA-2026",
+     "warehouse": "WH-02",
+     "movement_date": "2026-11-29",
      "language": "en"
     }
    },
    "response": {
-    "answer": "This needs an exception: USD 140 is above the USD 110 per night ceiling (KE-4.1). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Country Director for approval (KE-6.1).",
+    "answer": "Only the operations manager can create this transfer. EA-2026 stock may be transferred to another project only during a declared emergency. The operations manager creates the transfer after the EA-2026 project manager agrees. (EA-5.1)",
     "action": "escalate",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "ea-2026-annex",
       "version": "1.0",
-      "clause": "KE-4.1"
-     },
-     {
-      "document": "ke-travel",
-      "version": "1.0",
-      "clause": "KE-6.1"
+      "clause": "EA-5.1"
      }
     ]
    }
   },
   {
-   "case": "kenya-hotel-100-december",
+   "case": "ea-writeoff-december",
    "request": {
-    "question": "My hotel in Kisumu is USD 100 per night. Is that within policy?",
+    "question": "45 pieces of baby formula were damaged. Who approves the write-off?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-12-14",
+     "project": "EA-2026",
+     "warehouse": "WH-33",
+     "movement_date": "2026-12-08",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Yes. USD 100 per night is within the USD 110 ceiling in KE-4.1.",
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 45 pieces is within the operations manager's limit of 100 (EA-2.1).",
+    "action": "escalate",
+    "citations": [
+     {
+      "document": "ea-2026-annex",
+      "version": "1.0",
+      "clause": "EA-2.1"
+     },
+     {
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-6.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "ea-writeoff-limit-december",
+   "request": {
+    "question": "Up to how many pieces can the operations manager write off alone?",
+    "context": {
+     "project": "EA-2026",
+     "warehouse": "WH-33",
+     "movement_date": "2026-12-15",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Write-off approval (EA-2.1): The operations manager approves damage write-offs of up to 100 pieces per damage report. Above 100 pieces the emergency coordinator must also sign before the write-off is recorded.",
     "action": "answer",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "ea-2026-annex",
       "version": "1.0",
-      "clause": "KE-4.1"
+      "clause": "EA-2.1"
      }
     ]
    }
   },
   {
-   "case": "kenya-hotel-limit-december",
+   "case": "general-fefo",
    "request": {
-    "question": "What is the nightly hotel limit for a trip to Mombasa?",
+    "question": "Which batch should I issue first when two batches have different expiry dates?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-12-20",
+     "project": "FA-2026",
+     "warehouse": "WH-11",
+     "movement_date": "2026-11-20",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Hotel ceiling (KE-4.1): The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+    "answer": "First expired, first out (WP-4.1): When the same item is held in batches with different expiry dates, issue the batch with the earliest expiry date first (FEFO).",
     "action": "answer",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "wh-procedure",
       "version": "1.0",
-      "clause": "KE-4.1"
+      "clause": "WP-4.1"
      }
     ]
    }
   },
   {
-   "case": "paraphrase-a-week-lb",
+   "case": "general-negative",
    "request": {
-    "question": "My trip leaves in a week. Is that enough notice?",
+    "question": "The waybill asks for more pieces than I have in stock. Can I dispatch it anyway?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-28",
+     "project": "EA-2026",
+     "warehouse": "WH-11",
+     "movement_date": "2026-11-20",
      "language": "en"
     }
    },
    "response": {
-    "answer": "How many days before departure are you submitting the travel request?",
+    "answer": "No negative balance (WP-4.2): A dispatch or transfer that would take a balance below zero is refused. Dispatch only what is in stock and record the remainder as pending on the waybill.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-4.2"
+     }
+    ]
+   }
+  },
+  {
+   "case": "general-ledger",
+   "request": {
+    "question": "I entered the wrong quantity on yesterday's receipt. Can I edit the old entry?",
+    "context": {
+     "project": "INKIND",
+     "warehouse": "WH-11",
+     "movement_date": "2026-11-20",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Movement ledger (WP-2.1): Every receipt, dispatch, transfer and write-off is recorded in the movement ledger. The ledger is only ever appended to: an entry is never edited or deleted. A wrong quantity is corrected with a new adjusting movement that refers to the original entry.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-2.1"
+     }
+    ]
+   }
+  },
+  {
+   "case": "paraphrase-two-dozen",
+   "request": {
+    "question": "Two dozen cans of tuna got crushed. Can I write them off?",
+    "context": {
+     "project": "FA-2026",
+     "warehouse": "WH-08",
+     "movement_date": "2026-11-28",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "How many pieces were damaged? The approval needed depends on the quantity.",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "paraphrase-no-currency-ke",
+   "case": "paraphrase-a-month",
    "request": {
-    "question": "The guesthouse charges 130 a night. Can I book it?",
+    "question": "The flour expires in a month. Anything I should do?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-27",
+     "project": "FA-2026",
+     "warehouse": "WH-08",
+     "movement_date": "2026-11-28",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Advance booking (KE-3.1): Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
+    "answer": "Expired stock (WP-6.2): Expired stock must never be dispatched. Move it to the quarantine area and record it on a damage report for the operations manager to approve its write-off and disposal.",
     "action": "answer",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "wh-procedure",
       "version": "1.0",
-      "clause": "KE-3.1"
+      "clause": "WP-6.2"
      }
     ]
    }
   },
   {
-   "case": "lang-ceiling-en",
+   "case": "lang-writeoff-en",
    "request": {
-    "question": "What is the maximum hotel price per night?",
+    "question": "30 pieces of canned cheese were damaged. Can I write them off?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-25",
+     "project": "EA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-23",
      "language": "en"
     }
    },
    "response": {
-    "answer": "Hotel ceiling (LB-4.1): The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
-    "action": "answer",
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 30 pieces is within the operations manager's limit of 100 (EA-2.1).",
+    "action": "escalate",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-4.1"
+      "document": "ea-2026-annex",
+      "version": "1.0",
+      "clause": "EA-2.1"
+     },
+     {
+      "document": "wh-procedure",
+      "version": "1.0",
+      "clause": "WP-6.1"
      }
     ]
    }
   },
   {
-   "case": "lang-ceiling-fr",
+   "case": "lang-writeoff-fr",
    "request": {
-    "question": "Quel est le prix maximum d'un hôtel par nuit ?",
+    "question": "30 pièces de fromage en conserve ont été endommagées. Puis-je les passer en perte ?",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-25",
+     "project": "EA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-23",
      "language": "fr"
     }
    },
    "response": {
-    "answer": "Hotel ceiling (LB-4.1): The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+    "answer": "Counting in pieces (WP-3.2): Quantities are recorded in pieces. Boxes are converted with the item's pieces-per-box figure, so 12 boxes + 6 pieces of an item packed 24 per box is recorded as 294 pieces.",
     "action": "answer",
     "citations": [
      {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-4.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "lang-ceiling-ar",
-   "request": {
-    "question": "ما هو الحد الأقصى لسعر الفندق في الليلة؟",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-25",
-     "language": "ar"
-    }
-   },
-   "response": {
-    "answer": "I could not find a clause in the travel policy that matches your question. Could you rephrase it?",
-    "action": "ask_clarification",
-    "citations": []
-   }
-  },
-  {
-   "case": "lang-approver-en",
-   "request": {
-    "question": "Who approves an exception to the travel policy?",
-    "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-24",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "Exceptions (KE-6.1): Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "ke-travel",
+      "document": "wh-procedure",
       "version": "1.0",
-      "clause": "KE-6.1"
+      "clause": "WP-3.2"
      }
     ]
    }
   },
   {
-   "case": "lang-approver-fr",
+   "case": "lang-writeoff-ar",
    "request": {
-    "question": "Qui approuve une exception à la politique de voyage ?",
+    "question": "تلفت 30 قطعة من الجبنة المعلبة. هل يمكنني شطبها؟",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-24",
-     "language": "fr"
+     "project": "EA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-23",
+     "language": "ar"
     }
    },
    "response": {
-    "answer": "Exceptions (KE-6.1): Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
+    "answer": "I could not find a procedure clause that matches your question. Could you rephrase it?",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-partner-en",
+   "request": {
+    "question": "Can I dispatch this stock to a partner organization?",
+    "context": {
+     "project": "EA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-23",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Dispatch destinations (EA-3.1): EA-2026 stock may be dispatched only to the Organization's own centres and to shelters the Organization runs. It may never be dispatched to a partner organization.",
     "action": "answer",
     "citations": [
      {
-      "document": "ke-travel",
+      "document": "ea-2026-annex",
       "version": "1.0",
-      "clause": "KE-6.1"
+      "clause": "EA-3.1"
      }
     ]
    }
   },
   {
-   "case": "lang-approver-ar",
+   "case": "lang-partner-fr",
    "request": {
-    "question": "من يوافق على استثناء من سياسة السفر؟",
+    "question": "Puis-je envoyer ce stock à une organisation partenaire ?",
     "context": {
-     "office": "kenya",
-     "travel_date": "2026-11-24",
-     "language": "ar"
-    }
-   },
-   "response": {
-    "answer": "I could not find a clause in the travel policy that matches your question. Could you rephrase it?",
-    "action": "ask_clarification",
-    "citations": []
-   }
-  },
-  {
-   "case": "lang-late-en",
-   "request": {
-    "question": "My trip leaves in 4 days. What do I need to do?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-10",
-     "language": "en"
-    }
-   },
-   "response": {
-    "answer": "This needs an exception: 4 days is less than the 10-day minimum (LB-3.2). Do not book yet. Send an exception request to the travel coordinator, who passes it to the Head of Office for approval (LB-6.1).",
-    "action": "escalate",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-3.2"
-     },
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-6.1"
-     }
-    ]
-   }
-  },
-  {
-   "case": "lang-late-fr",
-   "request": {
-    "question": "Mon voyage part dans 4 jours. Que dois-je faire ?",
-    "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-10",
+     "project": "EA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-23",
      "language": "fr"
     }
    },
    "response": {
-    "answer": "Exceptions (LB-6.1): Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-6.1"
-     }
-    ]
+    "answer": "I could not find a procedure clause that matches your question. Could you rephrase it?",
+    "action": "ask_clarification",
+    "citations": []
    }
   },
   {
-   "case": "lang-late-ar",
+   "case": "lang-partner-ar",
    "request": {
-    "question": "رحلتي بعد 4 أيام. ماذا يجب أن أفعل؟",
+    "question": "هل يمكنني إرسال هذا المخزون إلى منظمة شريكة؟",
     "context": {
-     "office": "lebanon",
-     "travel_date": "2026-11-10",
+     "project": "EA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-23",
      "language": "ar"
     }
    },
    "response": {
-    "answer": "Exceptions (LB-6.1): Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
-    "action": "answer",
-    "citations": [
-     {
-      "document": "lb-travel",
-      "version": "2.0",
-      "clause": "LB-6.1"
-     }
-    ]
+    "answer": "I could not find a procedure clause that matches your question. Could you rephrase it?",
+    "action": "ask_clarification",
+    "citations": []
    }
   },
   {
-   "case": "lang-nodate-en",
+   "case": "lang-transfer-en",
    "request": {
-    "question": "How many days in advance must I submit my travel request?",
+    "question": "Can I transfer stock from this project to another project?",
     "context": {
-     "office": "lebanon",
-     "travel_date": null,
+     "project": "FA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-24",
      "language": "en"
     }
    },
    "response": {
-    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
-    "action": "ask_clarification",
-    "citations": []
+    "answer": "No. Transfers between projects (FA-5.1): FA-2026 stock may not be transferred to another project. It may only move between warehouses within FA-2026.",
+    "action": "answer",
+    "citations": [
+     {
+      "document": "fa-2026-annex",
+      "version": "2.0",
+      "clause": "FA-5.1"
+     }
+    ]
    }
   },
   {
-   "case": "lang-nodate-fr",
+   "case": "lang-transfer-fr",
    "request": {
-    "question": "Combien de jours à l'avance dois-je soumettre ma demande de voyage ?",
+    "question": "Puis-je transférer du stock de ce projet vers un autre projet ?",
     "context": {
-     "office": "lebanon",
-     "travel_date": null,
+     "project": "FA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-24",
      "language": "fr"
     }
    },
    "response": {
-    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "answer": "I could not find a procedure clause that matches your question. Could you rephrase it?",
     "action": "ask_clarification",
     "citations": []
    }
   },
   {
-   "case": "lang-nodate-ar",
+   "case": "lang-transfer-ar",
    "request": {
-    "question": "كم يوماً مسبقاً يجب أن أقدم طلب السفر؟",
+    "question": "هل يمكنني نقل مخزون من هذا المشروع إلى مشروع آخر؟",
     "context": {
-     "office": "lebanon",
-     "travel_date": null,
+     "project": "FA-2026",
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-24",
      "language": "ar"
     }
    },
    "response": {
-    "answer": "What date does your trip start? The rule that applies depends on the policy version in force on your travel date.",
+    "answer": "I could not find a procedure clause that matches your question. Could you rephrase it?",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-noproject-en",
+   "request": {
+    "question": "Can I write off 10 damaged pieces?",
+    "context": {
+     "project": null,
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-24",
+     "language": "en"
+    }
+   },
+   "response": {
+    "answer": "Which project funds this stock? The rules differ by project (EA-2026, FA-2026, INKIND).",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-noproject-fr",
+   "request": {
+    "question": "Puis-je passer en perte 10 pièces endommagées ?",
+    "context": {
+     "project": null,
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-24",
+     "language": "fr"
+    }
+   },
+   "response": {
+    "answer": "Which project funds this stock? The rules differ by project (EA-2026, FA-2026, INKIND).",
+    "action": "ask_clarification",
+    "citations": []
+   }
+  },
+  {
+   "case": "lang-noproject-ar",
+   "request": {
+    "question": "هل يمكنني شطب 10 قطع تالفة؟",
+    "context": {
+     "project": null,
+     "warehouse": "WH-25",
+     "movement_date": "2026-11-24",
+     "language": "ar"
+    }
+   },
+   "response": {
+    "answer": "Which project funds this stock? The rules differ by project (EA-2026, FA-2026, INKIND).",
     "action": "ask_clarification",
     "citations": []
    }

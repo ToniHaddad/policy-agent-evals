@@ -5,34 +5,47 @@
 # starts passing DOES fail the build ("unexpected pass"), so this list
 # cannot quietly go stale. Fix the agent, then delete the entry.
 
-- id: lang-ceiling-ar
+- id: lang-writeoff-fr
   reason: >-
-    The policy is English only and retrieval is lexical (BM25). No Arabic
-    word matches any clause, so the agent asks the user to rephrase.
+    No English damage word ("endommagées"), so the write-off rule never
+    fires. Accent folding turns "pièces" into "pieces", and BM25 then ranks
+    WP-3.2 (counting in pieces) first: the agent answers with the counting
+    rule instead of escalating the write-off.
 
-- id: lang-approver-ar
+- id: lang-writeoff-ar
   reason: >-
-    Same cause as lang-ceiling-ar: no Arabic token overlaps the English
-    clauses, so the best BM25 score is 0 and the agent asks to rephrase.
+    The procedures are English only and retrieval is lexical. No Arabic word
+    matches a clause and "30 قطعة" is not read as pieces, so the agent asks
+    the keeper to rephrase.
 
-- id: lang-late-fr
+- id: lang-partner-fr
   reason: >-
-    The day-count pattern only knows the English word "days", so "4 jours"
-    is not read as a deadline. BM25 then matches the bare digit "4" to
-    "sections 3 or 4" in LB-6.1 and answers with the exceptions clause
-    instead of escalating.
+    "organisation partenaire" does not match the English word "partner".
+    The only shared word is "stock", which is in almost every clause, so the
+    BM25 score stays under the threshold and the agent asks to rephrase.
 
-- id: lang-late-ar
+- id: lang-partner-ar
   reason: >-
-    Same as lang-late-fr: the Arabic digit is folded to "4", which matches
-    "sections 3 or 4" in LB-6.1. The agent answers instead of escalating.
+    No Arabic token overlaps the English clauses; BM25 scores 0 and the agent
+    asks to rephrase.
 
-- id: paraphrase-a-week-lb
+- id: lang-transfer-fr
   reason: >-
-    "In a week" is not a day count the agent reads, so it asks how many
-    days are left instead of seeing that 7 days is under Lebanon's 10.
+    "transférer ... projet" folds to "transferer ... projet", which matches
+    neither the transfer pattern ("project") nor the clause wording
+    ("transferred"), so the agent asks to rephrase.
 
-- id: paraphrase-no-currency-ke
+- id: lang-transfer-ar
   reason: >-
-    "130 a night" has no currency, so no rate is read. BM25 then ranks the
-    advance-booking clause first because of the word "book".
+    No Arabic token overlaps the English clauses; the agent asks to rephrase.
+
+- id: paraphrase-two-dozen
+  reason: >-
+    "Two dozen" is not read as 24 pieces, so the agent asks how many pieces
+    were damaged instead of escalating the write-off.
+
+- id: paraphrase-a-month
+  reason: >-
+    "In a month" is not read as a day count. With no number the expiry rule
+    does not fire, and BM25 picks WP-6.2 (expired stock) because of the word
+    "expires", so the agent answers instead of escalating.

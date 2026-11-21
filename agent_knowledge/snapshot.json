@@ -1,194 +1,250 @@
 {
- "corpus_fingerprint": "d9ed48bd59d5",
+ "corpus_fingerprint": "309ef3e95f17",
  "versions": [
   {
-   "document": "ke-travel",
-   "title": "Northbridge Relief Kenya Office, Staff Travel Policy",
-   "office": "kenya",
+   "document": "ea-2026-annex",
+   "title": "Project annex EA-2026 (Emergency Appeal)",
+   "applies_to": "EA-2026",
    "version": "1.0",
-   "effective_from": "2025-07-01",
-   "source": "kenya/ke-travel-v1.0.md",
+   "effective_from": "2026-02-01",
+   "source": "ea-2026/ea-2026-annex-v1.0.md",
    "clauses": [
     {
-     "id": "KE-1.1",
+     "id": "EA-1.1",
      "title": "Scope",
-     "text": "This policy applies to all staff, consultants and volunteers of the Kenya country office who travel on Northbridge Relief business.",
+     "text": "This annex applies to all stock funded by the Emergency Appeal project EA-2026, including stock prepositioned for shelters.",
      "replaces": null
     },
     {
-     "id": "KE-2.1",
-     "title": "Travel request",
-     "text": "Raise a travel request in the travel system for every trip. The budget holder for the grant that pays for the trip approves the travel request.",
+     "id": "EA-2.1",
+     "title": "Write-off approval",
+     "text": "The operations manager approves damage write-offs of up to 100 pieces per damage report. Above 100 pieces the emergency coordinator must also sign before the write-off is recorded.",
      "replaces": null
     },
     {
-     "id": "KE-3.1",
-     "title": "Advance booking",
-     "text": "Submit the travel request at least 5 calendar days before departure. A request submitted later than this needs an exception under KE-6.1.",
+     "id": "EA-3.1",
+     "title": "Dispatch destinations",
+     "text": "EA-2026 stock may be dispatched only to the Organization's own centres and to shelters the Organization runs. It may never be dispatched to a partner organization.",
      "replaces": null
     },
     {
-     "id": "KE-4.1",
-     "title": "Hotel ceiling",
-     "text": "The hotel rate may not exceed USD 110 per night, including breakfast. A higher rate needs an exception under KE-6.1.",
+     "id": "EA-4.1",
+     "title": "Near-expiry stock",
+     "text": "Stock within 60 days of its expiry date must be released for distribution or reported to the operations manager.",
      "replaces": null
     },
     {
-     "id": "KE-4.2",
-     "title": "Meal allowance",
-     "text": "The daily meal allowance (per diem) is KES 4,000 for each night away from your duty station. No allowance is paid for day trips.",
+     "id": "EA-5.1",
+     "title": "Transfers between projects",
+     "text": "EA-2026 stock may be transferred to another project only during a declared emergency. The operations manager creates the transfer after the EA-2026 project manager agrees.",
      "replaces": null
     },
     {
-     "id": "KE-5.1",
-     "title": "Ground transport",
-     "text": "Use the approved taxi providers listed on the intranet. Motorbike taxis are not allowed for any trip on Northbridge Relief business.",
-     "replaces": null
-    },
-    {
-     "id": "KE-6.1",
-     "title": "Exceptions",
-     "text": "Any departure from sections 3 or 4 needs an exception approved by the Country Director. Send the exception request to the travel coordinator before booking; the coordinator prepares it for the Country Director.",
-     "replaces": null
-    },
-    {
-     "id": "KE-7.1",
-     "title": "Movement request",
-     "text": "Field travel outside Nairobi needs a movement request approved by the security officer at least 24 hours before departure.",
-     "replaces": null
-    },
-    {
-     "id": "KE-8.1",
-     "title": "Expense claims",
-     "text": "Submit your expense claim with all receipts within 30 days of your return.",
+     "id": "EA-6.1",
+     "title": "In-kind donations",
+     "text": "EA-2026 does not receive in-kind donations. Donated goods are received under the INKIND annex.",
      "replaces": null
     }
    ]
   },
   {
-   "document": "lb-travel",
-   "title": "Northbridge Relief Lebanon Office, Staff Travel Policy",
-   "office": "lebanon",
+   "document": "fa-2026-annex",
+   "title": "Project annex FA-2026 (Food Assistance)",
+   "applies_to": "FA-2026",
    "version": "1.0",
-   "effective_from": "2025-03-01",
-   "source": "lebanon/lb-travel-v1.0.md",
+   "effective_from": "2026-01-15",
+   "source": "fa-2026/fa-2026-annex-v1.0.md",
    "clauses": [
     {
-     "id": "LB-1.1",
+     "id": "FA-1.1",
      "title": "Scope",
-     "text": "This policy applies to all staff and consultants of the Lebanon country office who travel on Northbridge Relief business, inside Lebanon or abroad.",
+     "text": "This annex applies to all stock funded by the Food Assistance project FA-2026, in every warehouse that holds it.",
      "replaces": null
     },
     {
-     "id": "LB-2.1",
-     "title": "Travel request",
-     "text": "Every trip needs an approved travel request in the travel system before any ticket or hotel is booked. Your line manager approves the travel request.",
+     "id": "FA-2.1",
+     "title": "Write-off approval",
+     "text": "The operations manager approves damage write-offs of up to 50 pieces per damage report. Above 50 pieces the FA-2026 project manager must also sign before the write-off is recorded.",
      "replaces": null
     },
     {
-     "id": "LB-3.1",
-     "title": "Advance booking",
-     "text": "Submit the travel request at least 7 calendar days before departure. A request submitted later than this needs an exception under LB-6.1.",
+     "id": "FA-3.1",
+     "title": "Dispatch destinations",
+     "text": "FA-2026 stock may be dispatched to the Organization's own centres and to a partner organization that has a signed distribution agreement for FA-2026.",
      "replaces": null
     },
     {
-     "id": "LB-4.1",
-     "title": "Hotel ceiling",
-     "text": "The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+     "id": "FA-4.1",
+     "title": "Near-expiry stock",
+     "text": "Stock within 30 days of its expiry date must be released for distribution or reported to the operations manager.",
      "replaces": null
     },
     {
-     "id": "LB-4.2",
-     "title": "Meal allowance",
-     "text": "The daily meal allowance (per diem) is USD 35 for each full day of travel and USD 20 for the day of departure and the day of return. Meals included in a workshop or hotel rate are deducted.",
+     "id": "FA-5.1",
+     "title": "Transfers between projects",
+     "text": "FA-2026 stock may not be transferred to another project. It may only move between warehouses within FA-2026.",
      "replaces": null
     },
     {
-     "id": "LB-5.1",
-     "title": "Ground transport",
-     "text": "Use an office vehicle where one is available. Taxis and ride services are reimbursed against a receipt. Private car mileage is not reimbursed.",
-     "replaces": null
-    },
-    {
-     "id": "LB-6.1",
-     "title": "Exceptions",
-     "text": "Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
-     "replaces": null
-    },
-    {
-     "id": "LB-7.1",
-     "title": "Security clearance",
-     "text": "Travel to any area rated level 3 or above on the office security map needs clearance from the security focal point at least 48 hours before departure.",
-     "replaces": null
-    },
-    {
-     "id": "LB-8.1",
-     "title": "Expense claims",
-     "text": "Submit your expense claim with all receipts within 15 days of your return. Claims submitted later are paid only with the Head of Office's approval.",
+     "id": "FA-6.1",
+     "title": "In-kind donations",
+     "text": "FA-2026 does not receive in-kind donations. Donated goods are received under the INKIND annex.",
      "replaces": null
     }
    ]
   },
   {
-   "document": "lb-travel",
-   "title": "Northbridge Relief Lebanon Office, Staff Travel Policy",
-   "office": "lebanon",
+   "document": "fa-2026-annex",
+   "title": "Project annex FA-2026 (Food Assistance)",
+   "applies_to": "FA-2026",
    "version": "2.0",
    "effective_from": "2026-10-15",
-   "source": "lebanon/lb-travel-v2.0.md",
+   "source": "fa-2026/fa-2026-annex-v2.0.md",
    "clauses": [
     {
-     "id": "LB-1.1",
+     "id": "FA-1.1",
      "title": "Scope",
-     "text": "This policy applies to all staff and consultants of the Lebanon country office who travel on Northbridge Relief business, inside Lebanon or abroad.",
+     "text": "This annex applies to all stock funded by the Food Assistance project FA-2026, in every warehouse that holds it.",
      "replaces": null
     },
     {
-     "id": "LB-2.1",
-     "title": "Travel request",
-     "text": "Every trip needs an approved travel request in the travel system before any ticket or hotel is booked. Your line manager approves the travel request.",
+     "id": "FA-2.1",
+     "title": "Write-off approval",
+     "text": "The operations manager approves damage write-offs of up to 50 pieces per damage report. Above 50 pieces the FA-2026 project manager must also sign before the write-off is recorded.",
      "replaces": null
     },
     {
-     "id": "LB-3.2",
-     "title": "Advance booking",
-     "text": "Submit the travel request at least 10 calendar days before departure, so that the security focal point and finance can both review it. A request submitted later than this needs an exception under LB-6.1.",
-     "replaces": "LB-3.1"
-    },
-    {
-     "id": "LB-4.1",
-     "title": "Hotel ceiling",
-     "text": "The hotel rate may not exceed USD 120 per night, including breakfast and taxes. A higher rate needs an exception under LB-6.1.",
+     "id": "FA-3.1",
+     "title": "Dispatch destinations",
+     "text": "FA-2026 stock may be dispatched to the Organization's own centres and to a partner organization that has a signed distribution agreement for FA-2026.",
      "replaces": null
     },
     {
-     "id": "LB-4.2",
-     "title": "Meal allowance",
-     "text": "The daily meal allowance (per diem) is USD 35 for each full day of travel and USD 20 for the day of departure and the day of return. Meals included in a workshop or hotel rate are deducted.",
+     "id": "FA-4.2",
+     "title": "Near-expiry stock",
+     "text": "Stock within 45 days of its expiry date must be released for distribution or reported to the operations manager, so that centres have time to plan a distribution before it expires.",
+     "replaces": "FA-4.1"
+    },
+    {
+     "id": "FA-5.1",
+     "title": "Transfers between projects",
+     "text": "FA-2026 stock may not be transferred to another project. It may only move between warehouses within FA-2026.",
      "replaces": null
     },
     {
-     "id": "LB-5.1",
-     "title": "Ground transport",
-     "text": "Use an office vehicle where one is available. Taxis and ride services are reimbursed against a receipt. Private car mileage is not reimbursed.",
+     "id": "FA-6.1",
+     "title": "In-kind donations",
+     "text": "FA-2026 does not receive in-kind donations. Donated goods are received under the INKIND annex.",
+     "replaces": null
+    }
+   ]
+  },
+  {
+   "document": "inkind-annex",
+   "title": "Project annex INKIND (unmarked in-kind donations)",
+   "applies_to": "INKIND",
+   "version": "1.0",
+   "effective_from": "2025-09-01",
+   "source": "inkind/inkind-annex-v1.0.md",
+   "clauses": [
+    {
+     "id": "IK-1.1",
+     "title": "Scope",
+     "text": "This annex applies to goods donated in kind that are not marked for a specific project.",
      "replaces": null
     },
     {
-     "id": "LB-6.1",
-     "title": "Exceptions",
-     "text": "Any departure from sections 3 or 4 needs an exception approved by the Head of Office before anything is booked. Send the exception request to the travel coordinator, who records it and forwards it for approval.",
+     "id": "IK-2.1",
+     "title": "Write-off approval",
+     "text": "The operations manager approves damage write-offs of any quantity. Above 200 pieces the donor relations officer is informed after approval.",
      "replaces": null
     },
     {
-     "id": "LB-7.1",
-     "title": "Security clearance",
-     "text": "Travel to any area rated level 3 or above on the office security map needs clearance from the security focal point at least 48 hours before departure.",
+     "id": "IK-3.1",
+     "title": "Dispatch destinations",
+     "text": "INKIND stock may be dispatched to the Organization's own centres and to partner organizations. No distribution agreement is needed.",
      "replaces": null
     },
     {
-     "id": "LB-8.1",
-     "title": "Expense claims",
-     "text": "Submit your expense claim with all receipts within 15 days of your return. Claims submitted later are paid only with the Head of Office's approval.",
+     "id": "IK-4.1",
+     "title": "Near-expiry stock",
+     "text": "Stock within 14 days of its expiry date must be released for distribution or reported to the operations manager.",
+     "replaces": null
+    },
+    {
+     "id": "IK-5.1",
+     "title": "Transfers between projects",
+     "text": "INKIND stock may be transferred to any project. The operations manager creates the transfer (TRF) and records the receiving project.",
+     "replaces": null
+    },
+    {
+     "id": "IK-6.1",
+     "title": "Donation receipt",
+     "text": "The goods received note for a donation needs the donor name, each item with its quantity in pieces and expiry date, and the signature of the person who delivered it. When the donor gives no value, write \"no value declared\"; do not enter an estimate of your own.",
+     "replaces": null
+    }
+   ]
+  },
+  {
+   "document": "wh-procedure",
+   "title": "Warehouse Procedure (all warehouses, all projects)",
+   "applies_to": "all",
+   "version": "1.0",
+   "effective_from": "2026-01-01",
+   "source": "general/wh-procedure-v1.0.md",
+   "clauses": [
+    {
+     "id": "WP-1.1",
+     "title": "Scope",
+     "text": "This procedure applies to every warehouse of the Organization, WH-01 to WH-40, and to every project that holds stock in them. Each project annex adds the rules that differ by donor-funded project.",
+     "replaces": null
+    },
+    {
+     "id": "WP-2.1",
+     "title": "Movement ledger",
+     "text": "Every receipt, dispatch, transfer and write-off is recorded in the movement ledger. The ledger is only ever appended to: an entry is never edited or deleted. A wrong quantity is corrected with a new adjusting movement that refers to the original entry.",
+     "replaces": null
+    },
+    {
+     "id": "WP-2.2",
+     "title": "Separate project stock",
+     "text": "Balances are kept per warehouse, per project, per item and per expiry date. Stock of different projects stored in the same building must never be merged, even for the same item code.",
+     "replaces": null
+    },
+    {
+     "id": "WP-3.1",
+     "title": "Receiving",
+     "text": "Every receipt needs a goods received note (RCV) issued from a purchase order or, for an in-kind donation, under the project annex that accepts donations.",
+     "replaces": null
+    },
+    {
+     "id": "WP-3.2",
+     "title": "Counting in pieces",
+     "text": "Quantities are recorded in pieces. Boxes are converted with the item's pieces-per-box figure, so 12 boxes + 6 pieces of an item packed 24 per box is recorded as 294 pieces.",
+     "replaces": null
+    },
+    {
+     "id": "WP-4.1",
+     "title": "First expired, first out",
+     "text": "When the same item is held in batches with different expiry dates, issue the batch with the earliest expiry date first (FEFO).",
+     "replaces": null
+    },
+    {
+     "id": "WP-4.2",
+     "title": "No negative balance",
+     "text": "A dispatch or transfer that would take a balance below zero is refused. Dispatch only what is in stock and record the remainder as pending on the waybill.",
+     "replaces": null
+    },
+    {
+     "id": "WP-6.1",
+     "title": "Damage report",
+     "text": "Damaged stock is recorded on a damage report (DMG) with a written incident description and photos where possible. A damage report becomes a write-off only when the operations manager approves it. The project annex says who else must sign above a quantity.",
+     "replaces": null
+    },
+    {
+     "id": "WP-6.2",
+     "title": "Expired stock",
+     "text": "Expired stock must never be dispatched. Move it to the quarantine area and record it on a damage report for the operations manager to approve its write-off and disposal.",
      "replaces": null
     }
    ]
