@@ -17,8 +17,8 @@ jobs:
       - run: pytest -q
 
   policy-evals:
-    # The eval suite on the live policies and cases. It fails when the agent
-    # cites a clause that is not in force on the travel date.
+    # The eval suite on the live procedures and cases. It fails when the agent
+    # cites a clause that is not in force on the movement date.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

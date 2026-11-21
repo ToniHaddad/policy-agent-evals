@@ -1,38 +1,33 @@
 ========================================================================
-REPLAY  no agent called  replies recorded=2026-11-20T21:41:30+00:00  by=reference-bm25
+REPLAY  no agent called  replies recorded=2026-11-21T23:07:06+00:00  by=reference-bm25
 ========================================================================
 
-FAIL  escalate-hotel-140-ke  (kenya, travel 2026-12-01, en)
-  question: The only hotel near the site costs USD 140 a night. Can I book it?
-  reply:    escalate ['ke-travel v1.0 KE-4.1', 'ke-travel v1.0 KE-6.1']
-  in_force: cited ke-travel v1.0 KE-4.1, but for travel on 2026-12-01 the version in force is ke-travel v2.0, where KE-4.1 is retired (retired from 2026-12-01, replaced by KE-4.3); cited ke-travel v1.0 KE-6.1, a superseded version: for travel on 2026-12-01 the version in force is ke-travel v2.0
+FAIL  ea-writeoff-december  (EA-2026, WH-33, moved 2026-12-08, en)
+  question: 45 pieces of baby formula were damaged. Who approves the write-off?
+  reply:    escalate ['ea-2026-annex v1.0 EA-2.1', 'wh-procedure v1.0 WP-6.1']
+  in_force: cited ea-2026-annex v1.0 EA-2.1, but for a movement on 2026-12-08 the version in force is ea-2026-annex v2.0, where EA-2.1 is retired (retired from 2026-12-01, replaced by EA-2.2)
 
-FAIL  kenya-hotel-100-december  (kenya, travel 2026-12-14, en)
-  question: My hotel in Kisumu is USD 100 per night. Is that within policy?
-  reply:    answer ['ke-travel v1.0 KE-4.1']
-  in_force: cited ke-travel v1.0 KE-4.1, but for travel on 2026-12-14 the version in force is ke-travel v2.0, where KE-4.1 is retired (retired from 2026-12-01, replaced by KE-4.3)
+FAIL  ea-writeoff-limit-december  (EA-2026, WH-33, moved 2026-12-15, en)
+  question: Up to how many pieces can the operations manager write off alone?
+  reply:    answer ['ea-2026-annex v1.0 EA-2.1']
+  in_force: cited ea-2026-annex v1.0 EA-2.1, but for a movement on 2026-12-15 the version in force is ea-2026-annex v2.0, where EA-2.1 is retired (retired from 2026-12-01, replaced by EA-2.2)
 
-FAIL  kenya-hotel-limit-december  (kenya, travel 2026-12-20, en)
-  question: What is the nightly hotel limit for a trip to Mombasa?
-  reply:    answer ['ke-travel v1.0 KE-4.1']
-  in_force: cited ke-travel v1.0 KE-4.1, but for travel on 2026-12-20 the version in force is ke-travel v2.0, where KE-4.1 is retired (retired from 2026-12-01, replaced by KE-4.3)
-
-3 case label(s) no longer match the policies:
-  - escalate-hotel-140-ke: label expects KE-4.1 v1.0, but on 2026-12-01 ke-travel v2.0 is in force and has no KE-4.1
-  - kenya-hotel-100-december: label expects KE-4.1 v1.0, but on 2026-12-14 ke-travel v2.0 is in force and has no KE-4.1
-  - kenya-hotel-limit-december: label expects KE-4.1 v1.0, but on 2026-12-20 ke-travel v2.0 is in force and has no KE-4.1
+2 case label(s) no longer match the procedures:
+  - ea-writeoff-december: label expects EA-2.1 v1.0, but on 2026-12-08 ea-2026-annex v2.0 is in force and has no EA-2.1
+  - ea-writeoff-limit-december: label expects EA-2.1 v1.0, but on 2026-12-15 ea-2026-annex v2.0 is in force and has no EA-2.1
 
 by language and tag:
   language ar               1/4  pass
-  language en              30/35 pass
-  language fr               3/4  pass
-  tag escalation            7/12 pass
+  language en              34/38 pass
+  language fr               1/4  pass
+  tag escalation           12/17 pass
+  tag general               3/3  pass
   tag missing-detail        8/8  pass
-  tag multilingual          8/12 pass
-  tag office-difference    13/13 pass
+  tag multilingual          6/12 pass
   tag paraphrase            0/2  pass
   tag policy-change         6/6  pass
+  tag project-difference   12/12 pass
 
-REPLAY: 43 cases, 34 pass, 3 fail, 6 known failures, 0 unexpected passes -> GATE FAILED
+REPLAY: 46 cases, 36 pass, 2 fail, 8 known failures, 0 unexpected passes -> GATE FAILED
 report:       reports/pr1/report-replay.html
 review sheet: reports/pr1/review-sheet-replay.html
