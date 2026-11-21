@@ -24,8 +24,8 @@ def test_cli_replay_exits_1_on_a_policy_change(tmp_path, changed_policies, capsy
     capsys.readouterr()
     assert main(["replay", "--policies", str(changed_policies), *common]) == 1
     printed = capsys.readouterr().out
-    assert "FAIL  kenya-hotel-100-december" in printed
-    assert "where KE-4.1 is retired" in printed
+    assert "FAIL  ea-writeoff-december" in printed
+    assert "where EA-2.1 is retired" in printed
     assert "GATE FAILED" in printed
 
 
@@ -66,23 +66,23 @@ def test_replay_never_calls_an_agent(agent, cases, corpus, known, monkeypatch):
 
 
 def test_replay_catches_policy_change_in_recorded_replies(agent, cases, corpus, known, changed_policies):
-    """Replies recorded before Kenya retired KE-4.1 fail against the new policy."""
+    """Replies recorded before EA-2026 retired EA-2.1 fail against the new annex."""
     _, transcript = run_live(agent, cases, corpus, known)
     run = replay(transcript, cases, Corpus.load(changed_policies), known)
     failed = {r.case.id: r for r in run.results if r.status == "fail"}
-    assert set(failed) == {"kenya-hotel-100-december", "kenya-hotel-limit-december", "escalate-hotel-140-ke"}
-    msg = next(c for c in failed["kenya-hotel-100-december"].checks if c.name == "in_force").message
-    assert "where KE-4.1 is retired (retired from 2026-12-01, replaced by KE-4.3)" in msg
+    assert set(failed) == {"ea-writeoff-december", "ea-writeoff-limit-december"}
+    msg = next(c for c in failed["ea-writeoff-december"].checks if c.name == "in_force").message
+    assert "where EA-2.1 is retired (retired from 2026-12-01, replaced by EA-2.2)" in msg
     assert not run.gate_passed
 
 
 def test_tampered_reply_is_caught(agent, cases, corpus, known):
     _, transcript = run_live(agent, cases, corpus, known)
     t = copy.deepcopy(transcript)
-    entry = next(e for e in t["entries"] if e["case"] == "office-notice-lb")
-    entry["response"]["citations"] = [{"document": "lb-travel", "version": "1.0", "clause": "LB-3.1"}]
+    entry = next(e for e in t["entries"] if e["case"] == "change-rule-on-day")
+    entry["response"]["citations"] = [{"document": "fa-2026-annex", "version": "1.0", "clause": "FA-4.1"}]
     run = replay(t, cases, corpus, known)
-    r = next(r for r in run.results if r.case.id == "office-notice-lb")
+    r = next(r for r in run.results if r.case.id == "change-rule-on-day")
     assert r.status == "fail"
     assert {c.name for c in r.failed_checks()} == {"clause", "version", "in_force"}
 
@@ -90,17 +90,17 @@ def test_tampered_reply_is_caught(agent, cases, corpus, known):
 def test_missing_and_stale_transcripts_fail(agent, cases, corpus, known):
     _, transcript = run_live(agent, cases, corpus, known)
     t = copy.deepcopy(transcript)
-    t["entries"] = [e for e in t["entries"] if e["case"] != "office-claims-ke"]
-    next(e for e in t["entries"] if e["case"] == "office-claims-lb")["request"]["question"] = "old wording"
+    t["entries"] = [e for e in t["entries"] if e["case"] != "general-ledger"]
+    next(e for e in t["entries"] if e["case"] == "general-fefo")["request"]["question"] = "old wording"
     run = replay(t, cases, corpus, known)
     by_id = {r.case.id: r for r in run.results}
-    assert "no recorded reply" in by_id["office-claims-ke"].checks[0].message
-    assert "different question" in by_id["office-claims-lb"].checks[0].message
+    assert "no recorded reply" in by_id["general-ledger"].checks[0].message
+    assert "different question" in by_id["general-fefo"].checks[0].message
 
 
 def test_known_failure_that_passes_fails_the_gate(agent, cases, corpus):
-    run, _ = run_live(agent, cases, corpus, {"office-hotel-ceiling-lb": "pretend it was broken"})
-    r = next(r for r in run.results if r.case.id == "office-hotel-ceiling-lb")
+    run, _ = run_live(agent, cases, corpus, {"project-partner-ea": "pretend it was broken"})
+    r = next(r for r in run.results if r.case.id == "project-partner-ea")
     assert r.status == "unexpected_pass"
     assert not run.gate_passed
 

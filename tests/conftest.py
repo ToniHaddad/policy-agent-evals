@@ -1,8 +1,8 @@
-"""Unit tests run on a frozen copy of the policies and cases in tests/fixtures.
+"""Unit tests run on a frozen copy of the procedures and cases in tests/fixtures.
 
 That keeps them about the harness. Whether the agent passes on the live
-policies is the eval suite's job (``evals run`` / ``evals replay`` in CI),
-so a policy pull request changes the eval result, not these tests.
+procedures is the eval suite's job (``evals run`` / ``evals replay`` in CI),
+so a procedure pull request changes the eval result, not these tests.
 """
 
 import shutil
@@ -38,34 +38,34 @@ def agent(corpus) -> ReferenceAgent:
     return ReferenceAgent(corpus)
 
 
-KENYA_V2 = """---
-document: ke-travel
-title: Northbridge Relief Kenya Office, Staff Travel Policy
-office: kenya
+EA_V2 = """---
+document: ea-2026-annex
+title: Project annex EA-2026 (Emergency Appeal)
+applies_to: EA-2026
 version: "2.0"
 effective_from: 2026-12-01
 ---
 
-## KE-1.1 Scope
-Applies to all Kenya office staff.
+## EA-1.1 Scope
+This annex applies to all stock funded by EA-2026.
 
-## KE-3.1 Advance booking
-Submit the travel request at least 5 calendar days before departure.
+## EA-2.2 Write-off approval
+Replaces: EA-2.1
+The operations manager approves damage write-offs of up to 40 pieces per
+damage report. Above 40 pieces the emergency coordinator must also sign
+before the write-off is recorded.
 
-## KE-4.3 Hotel ceiling
-Replaces: KE-4.1
-The hotel rate may not exceed USD 90 per night, including breakfast.
-
-## KE-6.1 Exceptions
-Any departure from sections 3 or 4 needs an exception approved by the
-Country Director.
+## EA-3.1 Dispatch destinations
+EA-2026 stock may be dispatched only to the Organization's own centres and
+to shelters the Organization runs. It may never be dispatched to a partner
+organization.
 """
 
 
 @pytest.fixture
 def changed_policies(tmp_path) -> Path:
-    """The fixture policies plus a Kenya v2.0 that retires KE-4.1 from 2026-12-01."""
+    """The fixture procedures plus an EA-2026 v2.0 that retires EA-2.1 from 2026-12-01."""
     dest = tmp_path / "policies"
     shutil.copytree(FIXTURES / "policies", dest)
-    (dest / "ke-travel-v2.0.md").write_text(KENYA_V2, encoding="utf-8")
+    (dest / "ea-2026-annex-v2.0.md").write_text(EA_V2, encoding="utf-8")
     return dest

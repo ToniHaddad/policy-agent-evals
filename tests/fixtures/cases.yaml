@@ -1,0 +1,450 @@
+# Hand-labelled cases for the warehouse procedures assistant (synthetic).
+#
+# Each case: the context the assistant gets (project, warehouse, the date of
+# the stock movement, language), a warehouse keeper's question, and the
+# expected decision. "document", "clause" and "version" are what a correct
+# answer must cite. ask_clarification cases cite nothing. escalate means
+# "send it to the operations manager".
+#
+# The FA-2026 annex changed on 2026-10-15: FA-4.1 (report stock within 30
+# days of expiry) was retired and replaced by FA-4.2 (45 days).
+# These labels were written before the reference agent was run on them.
+
+# --- Same question, different right answer in each project ----------------
+
+- id: project-partner-fa
+  project: FA-2026
+  warehouse: WH-03
+  movement_date: 2026-11-20
+  language: en
+  question: Can I dispatch this stock to a partner organization?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-3.1, version: "2.0"}
+  tags: [project-difference]
+
+- id: project-partner-ea
+  project: EA-2026
+  warehouse: WH-03
+  movement_date: 2026-11-20
+  language: en
+  question: Can I dispatch this stock to a partner organization?
+  expect: {action: answer, document: ea-2026-annex, clause: EA-3.1, version: "1.0"}
+  tags: [project-difference]
+
+- id: project-partner-ik
+  project: INKIND
+  warehouse: WH-03
+  movement_date: 2026-11-20
+  language: en
+  question: Can I dispatch this stock to a partner organization?
+  expect: {action: answer, document: inkind-annex, clause: IK-3.1, version: "1.0"}
+  tags: [project-difference]
+
+- id: project-transfer-fa
+  project: FA-2026
+  warehouse: WH-07
+  movement_date: 2026-11-18
+  language: en
+  question: Can I transfer 40 pieces of rice from this project to another project?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-5.1, version: "2.0"}
+  tags: [project-difference]
+
+- id: project-transfer-ea
+  project: EA-2026
+  warehouse: WH-07
+  movement_date: 2026-11-18
+  language: en
+  question: Can I transfer 40 pieces of rice from this project to another project?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-5.1, version: "1.0"}
+  tags: [project-difference, escalation]
+
+- id: project-transfer-ik
+  project: INKIND
+  warehouse: WH-07
+  movement_date: 2026-11-18
+  language: en
+  question: Can I transfer 40 pieces of rice from this project to another project?
+  expect: {action: escalate, document: inkind-annex, clause: IK-5.1, version: "1.0"}
+  tags: [project-difference, escalation]
+
+- id: project-expiry-40-fa
+  project: FA-2026
+  warehouse: WH-12
+  movement_date: 2026-11-25
+  language: en
+  question: The lentils expire in 40 days. Do I need to do anything?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-4.2, version: "2.0"}
+  tags: [project-difference, escalation]
+
+- id: project-expiry-40-ik
+  project: INKIND
+  warehouse: WH-12
+  movement_date: 2026-11-25
+  language: en
+  question: The lentils expire in 40 days. Do I need to do anything?
+  expect: {action: answer, document: inkind-annex, clause: IK-4.1, version: "1.0"}
+  tags: [project-difference]
+
+- id: project-writeoff-60-fa
+  project: FA-2026
+  warehouse: WH-05
+  movement_date: 2026-11-22
+  language: en
+  question: 60 pieces of canned cheese were damaged by water. Can I write them off?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-2.1, version: "2.0"}
+  tags: [project-difference, escalation]
+
+- id: project-writeoff-60-ea
+  project: EA-2026
+  warehouse: WH-05
+  movement_date: 2026-11-22
+  language: en
+  question: 60 pieces of canned cheese were damaged by water. Can I write them off?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  tags: [project-difference, escalation]
+
+- id: project-donation-ik
+  project: INKIND
+  warehouse: WH-09
+  movement_date: 2026-11-19
+  language: en
+  question: A donor brought blankets and gave no value. What does the donation receipt need?
+  expect: {action: answer, document: inkind-annex, clause: IK-6.1, version: "1.0"}
+  tags: [project-difference]
+
+- id: project-donation-ea
+  project: EA-2026
+  warehouse: WH-09
+  movement_date: 2026-11-19
+  language: en
+  question: A donor brought blankets and gave no value. What does the donation receipt need?
+  expect: {action: answer, document: ea-2026-annex, clause: EA-6.1, version: "1.0"}
+  tags: [project-difference]
+
+# --- Either side of the FA-2026 change on 2026-10-15 (by movement date) ----
+
+- id: change-expiry-40-before
+  project: FA-2026
+  warehouse: WH-12
+  movement_date: 2026-10-10
+  language: en
+  question: The lentils expire in 40 days. Do I need to do anything?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-4.1, version: "1.0"}
+  tags: [policy-change]
+
+- id: change-expiry-40-after
+  project: FA-2026
+  warehouse: WH-12
+  movement_date: 2026-10-20
+  language: en
+  question: The lentils expire in 40 days. Do I need to do anything?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-4.2, version: "2.0"}
+  tags: [policy-change, escalation]
+
+- id: change-rule-before
+  project: FA-2026
+  warehouse: WH-01
+  movement_date: 2026-10-14
+  language: en
+  question: How many days before expiry must stock be released or reported?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-4.1, version: "1.0"}
+  tags: [policy-change]
+
+- id: change-rule-on-day
+  project: FA-2026
+  warehouse: WH-01
+  movement_date: 2026-10-15
+  language: en
+  question: How many days before expiry must stock be released or reported?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-4.2, version: "2.0"}
+  tags: [policy-change]
+
+- id: change-expiry-35-after
+  project: FA-2026
+  warehouse: WH-14
+  movement_date: 2026-11-03
+  language: en
+  question: This batch of rice expires in 35 days. Is that a problem?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-4.2, version: "2.0"}
+  tags: [policy-change, escalation]
+
+- id: change-expiry-50-after
+  project: FA-2026
+  warehouse: WH-14
+  movement_date: 2026-11-05
+  language: en
+  question: The cooking oil expires in 50 days. Do I need to report it?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-4.2, version: "2.0"}
+  tags: [policy-change]
+
+# --- A detail that decides the answer is missing: the only right move is to ask
+
+- id: missing-project
+  project: null
+  warehouse: WH-21
+  movement_date: 2026-11-20
+  language: en
+  question: Can I send these hygiene kits to a partner organization?
+  expect: {action: ask_clarification}
+  tags: [missing-detail]
+
+- id: missing-pieces
+  project: EA-2026
+  warehouse: WH-21
+  movement_date: 2026-11-21
+  language: en
+  question: Some boxes of canned cheese were crushed in the truck. Can I write them off?
+  expect: {action: ask_clarification}
+  tags: [missing-detail]
+
+- id: missing-expiry
+  project: INKIND
+  warehouse: WH-21
+  movement_date: 2026-11-21
+  language: en
+  question: Can I still dispatch the biscuits, or are they too close to expiry?
+  expect: {action: ask_clarification}
+  tags: [missing-detail]
+
+- id: missing-date
+  project: FA-2026
+  warehouse: WH-12
+  movement_date: null
+  language: en
+  question: The lentils expire in 40 days. Do I need to do anything?
+  expect: {action: ask_clarification}
+  tags: [missing-detail]
+
+- id: missing-box-size
+  project: FA-2026
+  warehouse: WH-30
+  movement_date: 2026-11-23
+  language: en
+  question: 8 boxes of soap were damaged. Can I write them off?
+  expect: {action: ask_clarification}
+  tags: [missing-detail]
+
+# --- Write-offs, expired stock and transfers that go to the operations manager
+
+- id: escalate-flood-ea
+  project: EA-2026
+  warehouse: WH-33
+  movement_date: 2026-11-24
+  language: en
+  question: 120 pieces of canned cheese were damaged in the flood. What do I do?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  tags: [escalation]
+
+- id: escalate-boxes-fa
+  project: FA-2026
+  warehouse: WH-05
+  movement_date: 2026-11-26
+  language: en
+  question: 12 boxes + 6 pieces of canned cheese (24 per box) were damaged. Can I write them off?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-2.1, version: "2.0"}
+  tags: [escalation]
+
+- id: escalate-expired-ik
+  project: INKIND
+  warehouse: WH-18
+  movement_date: 2026-11-27
+  language: en
+  question: The juice in rack 4 expired last week. Can I dispatch it?
+  expect: {action: escalate, document: wh-procedure, clause: WP-6.2, version: "1.0"}
+  tags: [escalation]
+
+- id: escalate-transfer-ea
+  project: EA-2026
+  warehouse: WH-02
+  movement_date: 2026-11-29
+  language: en
+  question: Can I transfer 200 pieces of tarpaulin to the WASH-2026 project?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-5.1, version: "1.0"}
+  tags: [escalation]
+
+- id: ea-writeoff-december
+  project: EA-2026
+  warehouse: WH-33
+  movement_date: 2026-12-08
+  language: en
+  question: 45 pieces of baby formula were damaged. Who approves the write-off?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  tags: [escalation]
+
+- id: ea-writeoff-limit-december
+  project: EA-2026
+  warehouse: WH-33
+  movement_date: 2026-12-15
+  language: en
+  question: Up to how many pieces can the operations manager write off alone?
+  expect: {action: answer, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+
+# --- Rules from the general procedure -------------------------------------
+
+- id: general-fefo
+  project: FA-2026
+  warehouse: WH-11
+  movement_date: 2026-11-20
+  language: en
+  question: Which batch should I issue first when two batches have different expiry dates?
+  expect: {action: answer, document: wh-procedure, clause: WP-4.1, version: "1.0"}
+  tags: [general]
+
+- id: general-negative
+  project: EA-2026
+  warehouse: WH-11
+  movement_date: 2026-11-20
+  language: en
+  question: The waybill asks for more pieces than I have in stock. Can I dispatch it anyway?
+  expect: {action: answer, document: wh-procedure, clause: WP-4.2, version: "1.0"}
+  tags: [general]
+
+- id: general-ledger
+  project: INKIND
+  warehouse: WH-11
+  movement_date: 2026-11-20
+  language: en
+  question: I entered the wrong quantity on yesterday's receipt. Can I edit the old entry?
+  expect: {action: answer, document: wh-procedure, clause: WP-2.1, version: "1.0"}
+  tags: [general]
+
+# --- English paraphrases written without looking at the agent's patterns ---
+
+- id: paraphrase-two-dozen
+  project: FA-2026
+  warehouse: WH-08
+  movement_date: 2026-11-28
+  language: en
+  question: Two dozen cans of tuna got crushed. Can I write them off?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-2.1, version: "2.0"}
+  tags: [paraphrase, escalation]
+
+- id: paraphrase-a-month
+  project: FA-2026
+  warehouse: WH-08
+  movement_date: 2026-11-28
+  language: en
+  question: The flour expires in a month. Anything I should do?
+  expect: {action: escalate, document: fa-2026-annex, clause: FA-4.2, version: "2.0"}
+  tags: [paraphrase, escalation]
+
+# --- English, French and Arabic: the same question must reach the same decision
+
+- id: lang-writeoff-en
+  pair: writeoff
+  project: EA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-23
+  language: en
+  question: 30 pieces of canned cheese were damaged. Can I write them off?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  tags: [multilingual, escalation]
+
+- id: lang-writeoff-fr
+  pair: writeoff
+  project: EA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-23
+  language: fr
+  question: 30 pièces de fromage en conserve ont été endommagées. Puis-je les passer en perte ?
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  tags: [multilingual, escalation]
+
+- id: lang-writeoff-ar
+  pair: writeoff
+  project: EA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-23
+  language: ar
+  question: تلفت 30 قطعة من الجبنة المعلبة. هل يمكنني شطبها؟
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  tags: [multilingual, escalation]
+
+- id: lang-partner-en
+  pair: partner
+  project: EA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-23
+  language: en
+  question: Can I dispatch this stock to a partner organization?
+  expect: {action: answer, document: ea-2026-annex, clause: EA-3.1, version: "1.0"}
+  tags: [multilingual]
+
+- id: lang-partner-fr
+  pair: partner
+  project: EA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-23
+  language: fr
+  question: Puis-je envoyer ce stock à une organisation partenaire ?
+  expect: {action: answer, document: ea-2026-annex, clause: EA-3.1, version: "1.0"}
+  tags: [multilingual]
+
+- id: lang-partner-ar
+  pair: partner
+  project: EA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-23
+  language: ar
+  question: هل يمكنني إرسال هذا المخزون إلى منظمة شريكة؟
+  expect: {action: answer, document: ea-2026-annex, clause: EA-3.1, version: "1.0"}
+  tags: [multilingual]
+
+- id: lang-transfer-en
+  pair: transfer
+  project: FA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-24
+  language: en
+  question: Can I transfer stock from this project to another project?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-5.1, version: "2.0"}
+  tags: [multilingual]
+
+- id: lang-transfer-fr
+  pair: transfer
+  project: FA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-24
+  language: fr
+  question: Puis-je transférer du stock de ce projet vers un autre projet ?
+  expect: {action: answer, document: fa-2026-annex, clause: FA-5.1, version: "2.0"}
+  tags: [multilingual]
+
+- id: lang-transfer-ar
+  pair: transfer
+  project: FA-2026
+  warehouse: WH-25
+  movement_date: 2026-11-24
+  language: ar
+  question: هل يمكنني نقل مخزون من هذا المشروع إلى مشروع آخر؟
+  expect: {action: answer, document: fa-2026-annex, clause: FA-5.1, version: "2.0"}
+  tags: [multilingual]
+
+- id: lang-noproject-en
+  pair: noproject
+  project: null
+  warehouse: WH-25
+  movement_date: 2026-11-24
+  language: en
+  question: Can I write off 10 damaged pieces?
+  expect: {action: ask_clarification}
+  tags: [multilingual, missing-detail]
+
+- id: lang-noproject-fr
+  pair: noproject
+  project: null
+  warehouse: WH-25
+  movement_date: 2026-11-24
+  language: fr
+  question: Puis-je passer en perte 10 pièces endommagées ?
+  expect: {action: ask_clarification}
+  tags: [multilingual, missing-detail]
+
+- id: lang-noproject-ar
+  pair: noproject
+  project: null
+  warehouse: WH-25
+  movement_date: 2026-11-24
+  language: ar
+  question: هل يمكنني شطب 10 قطع تالفة؟
+  expect: {action: ask_clarification}
+  tags: [multilingual, missing-detail]

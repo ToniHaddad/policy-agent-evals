@@ -43,24 +43,24 @@ def test_http_agent_matches_in_process_agent(stub, agent, cases, corpus, known):
 
 
 def test_arabic_survives_the_round_trip(stub):
-    q = "ما هو الحد الأقصى لسعر الفندق في الليلة؟"
-    r = HttpAgent(f"{stub}/ask").ask(AgentRequest(q, "lebanon", "2026-11-25", "ar"))
+    q = "هل يمكنني إرسال هذا المخزون إلى منظمة شريكة؟"
+    r = HttpAgent(f"{stub}/ask").ask(AgentRequest(q, "EA-2026", "WH-25", "2026-11-23", "ar"))
     assert r.action == "ask_clarification"
 
 
 def test_missing_fields_raise_format_error(stub):
     with pytest.raises(ResponseFormatError, match="missing action, citations"):
-        HttpAgent(f"{stub}/broken").ask(AgentRequest("q", "lebanon", None, "en"))
+        HttpAgent(f"{stub}/broken").ask(AgentRequest("q", "FA-2026", "WH-01", None, "en"))
 
 
 def test_http_500_raises_agent_error(stub):
     with pytest.raises(AgentError, match="HTTP 500"):
-        HttpAgent(f"{stub}/error").ask(AgentRequest("q", "lebanon", None, "en"))
+        HttpAgent(f"{stub}/error").ask(AgentRequest("q", "FA-2026", "WH-01", None, "en"))
 
 
 def test_timeout_raises_agent_error(stub):
     with pytest.raises(AgentError, match="within 0.3s"):
-        HttpAgent(f"{stub}/slow", timeout=0.3).ask(AgentRequest("q", "lebanon", None, "en"))
+        HttpAgent(f"{stub}/slow", timeout=0.3).ask(AgentRequest("q", "FA-2026", "WH-01", None, "en"))
 
 
 def test_unreachable_agent_fails_cases_not_the_run(cases, corpus, known):
@@ -75,7 +75,7 @@ def test_unreachable_agent_fails_cases_not_the_run(cases, corpus, known):
 def test_headers_are_sent_but_not_recorded(stub):
     agent = HttpAgent(f"{stub}/ask", headers={"Authorization": "Bearer not-a-real-token"})
     assert "not-a-real-token" not in json.dumps(agent.describe())
-    assert agent.ask(AgentRequest("Who approves an exception?", "kenya", "2026-11-24", "en")).action == "answer"
+    assert agent.ask(AgentRequest("Can I dispatch this stock to a partner organization?", "INKIND", "WH-03", "2026-11-24", "en")).action == "answer"
 
 
 def test_second_server_on_a_taken_port_fails_loudly(stub, agent):

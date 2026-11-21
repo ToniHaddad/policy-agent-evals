@@ -1,0 +1,51 @@
+# Cases the reference agent fails today, with the reason found.
+#
+# CI gates on regressions: a case listed here may fail without failing the
+# build, and every report still shows it as a failure. A listed case that
+# starts passing DOES fail the build ("unexpected pass"), so this list
+# cannot quietly go stale. Fix the agent, then delete the entry.
+
+- id: lang-writeoff-fr
+  reason: >-
+    No English damage word ("endommagées"), so the write-off rule never
+    fires. Accent folding turns "pièces" into "pieces", and BM25 then ranks
+    WP-3.2 (counting in pieces) first: the agent answers with the counting
+    rule instead of escalating the write-off.
+
+- id: lang-writeoff-ar
+  reason: >-
+    The procedures are English only and retrieval is lexical. No Arabic word
+    matches a clause and "30 قطعة" is not read as pieces, so the agent asks
+    the keeper to rephrase.
+
+- id: lang-partner-fr
+  reason: >-
+    "organisation partenaire" does not match the English word "partner".
+    The only shared word is "stock", which is in almost every clause, so the
+    BM25 score stays under the threshold and the agent asks to rephrase.
+
+- id: lang-partner-ar
+  reason: >-
+    No Arabic token overlaps the English clauses; BM25 scores 0 and the agent
+    asks to rephrase.
+
+- id: lang-transfer-fr
+  reason: >-
+    "transférer ... projet" folds to "transferer ... projet", which matches
+    neither the transfer pattern ("project") nor the clause wording
+    ("transferred"), so the agent asks to rephrase.
+
+- id: lang-transfer-ar
+  reason: >-
+    No Arabic token overlaps the English clauses; the agent asks to rephrase.
+
+- id: paraphrase-two-dozen
+  reason: >-
+    "Two dozen" is not read as 24 pieces, so the agent asks how many pieces
+    were damaged instead of escalating the write-off.
+
+- id: paraphrase-a-month
+  reason: >-
+    "In a month" is not read as a day count. With no number the expiry rule
+    does not fire, and BM25 picks WP-6.2 (expired stock) because of the word
+    "expires", so the agent answers instead of escalating.

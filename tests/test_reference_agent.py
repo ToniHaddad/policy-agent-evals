@@ -1,12 +1,12 @@
-"""The reference agent: version by travel date, asking, escalating."""
+"""The reference agent: version by movement date, asking, escalating."""
 
 from policy_evals.agent.base import AgentRequest
 from policy_evals.agent.reference import ReferenceAgent, read_facts
 from policy_evals.policies import Corpus
 
 
-def ask(agent, q, office="lebanon", day="2026-11-20", lang="en"):
-    return agent.ask(AgentRequest(q, office, day, lang))
+def ask(agent, q, project="FA-2026", day="2026-11-20", lang="en", wh="WH-12"):
+    return agent.ask(AgentRequest(q, project, wh, day, lang))
 
 
 def clauses(r):
@@ -14,60 +14,74 @@ def clauses(r):
 
 
 def test_cites_version_in_force_on_each_side_of_the_change(agent):
-    q = "How many days in advance must I submit my travel request?"
-    assert clauses(ask(agent, q, day="2026-10-14")) == [("LB-3.1", "1.0")]
-    assert clauses(ask(agent, q, day="2026-10-15")) == [("LB-3.2", "2.0")]
+    q = "How many days before expiry must stock be released or reported?"
+    assert clauses(ask(agent, q, day="2026-10-14")) == [("FA-4.1", "1.0")]
+    assert clauses(ask(agent, q, day="2026-10-15")) == [("FA-4.2", "2.0")]
 
 
 def test_same_days_different_decision_across_the_change(agent):
-    q = "My trip leaves in 8 days. Can I still submit the travel request normally?"
+    q = "The lentils expire in 40 days. Do I need to do anything?"
     assert ask(agent, q, day="2026-10-10").action == "answer"
     r = ask(agent, q, day="2026-10-20")
-    assert r.action == "escalate"
-    assert ("LB-6.1", "2.0") in clauses(r)
+    assert r.action == "escalate" and clauses(r) == [("FA-4.2", "2.0")]
 
 
-def test_no_date_means_ask(agent):
-    r = ask(agent, "How many days ahead do I need to book?", day=None)
+def test_no_project_or_no_date_means_ask(agent):
+    assert ask(agent, "Can I send kits to a partner?", project=None).action == "ask_clarification"
+    assert ask(agent, "Can I send kits to a partner?", project="WASH-2026").action == "ask_clarification"
+    r = ask(agent, "The lentils expire in 40 days.", day=None)
     assert r.action == "ask_clarification" and r.citations == []
 
 
-def test_missing_rate_means_ask(agent):
-    assert ask(agent, "Is my hotel within the allowed rate?").action == "ask_clarification"
+def test_damage_without_a_quantity_means_ask(agent):
+    assert ask(agent, "Some boxes were crushed. Can I write them off?").action == "ask_clarification"
+    r = ask(agent, "8 boxes of soap were damaged. Can I write them off?")
+    assert r.action == "ask_clarification" and "pieces are in each box" in r.answer
 
 
-def test_offices_differ_on_the_same_rate(agent):
-    q = "My hotel costs USD 115 per night. Is that within policy?"
-    assert ask(agent, q, office="lebanon").action == "answer"
-    ke = ask(agent, q, office="kenya")
-    assert ke.action == "escalate"
-    assert "Country Director" in ke.answer
-
-
-def test_escalation_names_the_office_approver(agent):
-    q = "My trip leaves in four days and the hotel is above the usual limit. What do I need?"
-    r = ask(agent, q)
+def test_boxes_are_converted_to_pieces(agent):
+    r = ask(agent, "12 boxes + 6 pieces of canned cheese (24 per box) were damaged.")
     assert r.action == "escalate"
-    assert [c for c, _ in clauses(r)] == ["LB-3.2", "LB-4.1", "LB-6.1"]
-    assert "Head of Office" in r.answer and "travel coordinator" in r.answer
+    assert "294 pieces is above 50, so the FA-2026 project manager must also sign" in r.answer
 
 
-def test_unknown_office_asks(agent):
-    assert ask(agent, "What is the hotel limit?", office="colombia").action == "ask_clarification"
+def test_projects_differ_on_transfers(agent):
+    q = "Can I transfer 40 pieces of rice from this project to another project?"
+    assert ask(agent, q, project="FA-2026").action == "answer"
+    assert ask(agent, q, project="EA-2026").action == "escalate"
+    assert clauses(ask(agent, q, project="INKIND")) == [("IK-5.1", "1.0")]
+
+
+def test_write_off_names_the_project_co_signer(agent):
+    q = "120 pieces of canned cheese were damaged in the flood."
+    r = ask(agent, q, project="EA-2026")
+    assert r.action == "escalate"
+    assert [c for c, _ in clauses(r)] == ["EA-2.1", "WP-6.1"]
+    assert "emergency coordinator must also sign" in r.answer
+    small = ask(agent, "60 pieces were damaged.", project="EA-2026")
+    assert "within the operations manager's limit of 100" in small.answer
+
+
+def test_expired_stock_cites_the_expired_stock_clause(agent):
+    """Regression: a loose title match once cited WP-4.1 'First expired, first out'."""
+    r = ask(agent, "The juice expired last week. Can I dispatch it?", project="INKIND")
+    assert r.action == "escalate" and clauses(r) == [("WP-6.2", "1.0")]
 
 
 def test_read_facts():
-    f = read_facts("My trip leaves in four days and the hotel costs $140")
-    assert (f.days, f.rate) == (4, 140)
-    assert read_facts("the hotel is above the usual limit").over_limit
-    assert read_facts("Mon voyage part dans 4 jours").days is None  # English patterns only
+    f = read_facts("The rice expires in four days and 30 pieces were damaged")
+    assert (f.expiry_days, f.pieces, f.damage) == (4, 30, True)
+    assert read_facts("12 boxes + 6 pieces (24 per box)").pieces == 294
+    assert read_facts("Two dozen cans got crushed").pieces is None  # known gap
+    assert read_facts("30 pièces endommagées").damage is False  # English patterns only
 
 
 def test_stale_snapshot_keeps_citing_what_it_knew(corpus, changed_policies):
-    """The agent answers from its snapshot, not from the policy folder."""
+    """The agent answers from its snapshot, not from the procedure folder."""
     stale = ReferenceAgent(corpus)
     fresh = ReferenceAgent(Corpus.load(changed_policies))
-    q = "My hotel in Kisumu is USD 100 per night. Is that within policy?"
-    assert clauses(ask(stale, q, office="kenya", day="2026-12-14")) == [("KE-4.1", "1.0")]
-    r = ask(fresh, q, office="kenya", day="2026-12-14")
-    assert r.action == "escalate" and ("KE-4.3", "2.0") in clauses(r)
+    q = "45 pieces of baby formula were damaged. Who approves the write-off?"
+    assert clauses(ask(stale, q, project="EA-2026", day="2026-12-08"))[0] == ("EA-2.1", "1.0")
+    r = ask(fresh, q, project="EA-2026", day="2026-12-08")
+    assert clauses(r)[0] == ("EA-2.2", "2.0")
+    assert "emergency coordinator must also sign" in r.answer
