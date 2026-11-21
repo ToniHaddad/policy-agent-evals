@@ -1,5 +1,5 @@
 {
- "corpus_fingerprint": "309ef3e95f17",
+ "corpus_fingerprint": "472ac9c11b93",
  "versions": [
   {
    "document": "ea-2026-annex",
@@ -20,6 +20,52 @@
      "title": "Write-off approval",
      "text": "The operations manager approves damage write-offs of up to 100 pieces per damage report. Above 100 pieces the emergency coordinator must also sign before the write-off is recorded.",
      "replaces": null
+    },
+    {
+     "id": "EA-3.1",
+     "title": "Dispatch destinations",
+     "text": "EA-2026 stock may be dispatched only to the Organization's own centres and to shelters the Organization runs. It may never be dispatched to a partner organization.",
+     "replaces": null
+    },
+    {
+     "id": "EA-4.1",
+     "title": "Near-expiry stock",
+     "text": "Stock within 60 days of its expiry date must be released for distribution or reported to the operations manager.",
+     "replaces": null
+    },
+    {
+     "id": "EA-5.1",
+     "title": "Transfers between projects",
+     "text": "EA-2026 stock may be transferred to another project only during a declared emergency. The operations manager creates the transfer after the EA-2026 project manager agrees.",
+     "replaces": null
+    },
+    {
+     "id": "EA-6.1",
+     "title": "In-kind donations",
+     "text": "EA-2026 does not receive in-kind donations. Donated goods are received under the INKIND annex.",
+     "replaces": null
+    }
+   ]
+  },
+  {
+   "document": "ea-2026-annex",
+   "title": "Project annex EA-2026 (Emergency Appeal)",
+   "applies_to": "EA-2026",
+   "version": "2.0",
+   "effective_from": "2026-12-01",
+   "source": "ea-2026/ea-2026-annex-v2.0.md",
+   "clauses": [
+    {
+     "id": "EA-1.1",
+     "title": "Scope",
+     "text": "This annex applies to all stock funded by the Emergency Appeal project EA-2026, including stock prepositioned for shelters.",
+     "replaces": null
+    },
+    {
+     "id": "EA-2.2",
+     "title": "Write-off approval",
+     "text": "The operations manager approves damage write-offs of up to 40 pieces per damage report. Above 40 pieces the emergency coordinator must also sign before the write-off is recorded, and the damage report needs photos.",
+     "replaces": "EA-2.1"
     },
     {
      "id": "EA-3.1",

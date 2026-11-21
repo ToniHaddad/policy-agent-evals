@@ -267,7 +267,8 @@
   movement_date: 2026-12-08
   language: en
   question: 45 pieces of baby formula were damaged. Who approves the write-off?
-  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  # EA-2026 v2.0 (from 2026-12-01): above 40 pieces the emergency coordinator also signs.
+  expect: {action: escalate, document: ea-2026-annex, clause: EA-2.2, version: "2.0"}
   tags: [escalation]
 
 - id: ea-writeoff-limit-december
@@ -276,7 +277,7 @@
   movement_date: 2026-12-15
   language: en
   question: Up to how many pieces can the operations manager write off alone?
-  expect: {action: answer, document: ea-2026-annex, clause: EA-2.1, version: "1.0"}
+  expect: {action: answer, document: ea-2026-annex, clause: EA-2.2, version: "2.0"}
 
 # --- Rules from the general procedure -------------------------------------
 

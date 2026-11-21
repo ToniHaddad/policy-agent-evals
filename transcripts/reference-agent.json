@@ -1,13 +1,14 @@
 {
  "kind": "policy-agent-evals/transcripts",
  "format": 1,
- "recorded_at": "2026-11-21T23:07:06+00:00",
+ "recorded_at": "2026-11-21T23:12:32+00:00",
  "agent": {
   "name": "reference-bm25",
   "kind": "in-process",
-  "knowledge_snapshot": "309ef3e95f17",
+  "knowledge_snapshot": "472ac9c11b93",
   "versions_known": [
    "ea-2026-annex v1.0",
+   "ea-2026-annex v2.0",
    "fa-2026-annex v1.0",
    "fa-2026-annex v2.0",
    "inkind-annex v1.0",
@@ -638,13 +639,13 @@
     }
    },
    "response": {
-    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 45 pieces is within the operations manager's limit of 100 (EA-2.1).",
+    "answer": "Do not remove the stock yet. Record a damage report with a written description of the incident; it becomes a write-off only when the operations manager approves it. 45 pieces is above 40, so the emergency coordinator must also sign (EA-2.2).",
     "action": "escalate",
     "citations": [
      {
       "document": "ea-2026-annex",
-      "version": "1.0",
-      "clause": "EA-2.1"
+      "version": "2.0",
+      "clause": "EA-2.2"
      },
      {
       "document": "wh-procedure",
@@ -666,13 +667,13 @@
     }
    },
    "response": {
-    "answer": "Write-off approval (EA-2.1): The operations manager approves damage write-offs of up to 100 pieces per damage report. Above 100 pieces the emergency coordinator must also sign before the write-off is recorded.",
+    "answer": "Write-off approval (EA-2.2): The operations manager approves damage write-offs of up to 40 pieces per damage report. Above 40 pieces the emergency coordinator must also sign before the write-off is recorded, and the damage report needs photos.",
     "action": "answer",
     "citations": [
      {
       "document": "ea-2026-annex",
-      "version": "1.0",
-      "clause": "EA-2.1"
+      "version": "2.0",
+      "clause": "EA-2.2"
      }
     ]
    }
